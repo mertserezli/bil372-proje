@@ -10,6 +10,6 @@ bootstrap & jquery: https://www.codecademy.com/
 java web application tutorial: https://www.youtube.com/watch?v=Av6zh817QEc
 
 # geronimo yüklemekle ilgili şeyler
-install: http://geronimo.apache.org/downloads.html
-hata giderme ile ilgili: http://geronimo.apache.org/GMOxDOC22/installing-geronimo-eclipse-plugin.html
-https://stackoverflow.com/questions/25086930/main-not-found-starting-apache-geronimo
+install: http://geronimo.apache.org/downloads.html <br />
+hata giderme ile ilgili: http://geronimo.apache.org/GMOxDOC22/installing-geronimo-eclipse-plugin.html <br />
+https://stackoverflow.com/questions/25086930/main-not-found-starting-apache-geronimo <br />
