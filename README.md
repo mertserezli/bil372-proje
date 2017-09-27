@@ -5,5 +5,5 @@ gereksinimler:
 https://docs.google.com/document/d/1bjp4vAN6pYF0y3Td106JSlHAjR7c9G828EIaizwBOX4/edit?usp=sharing
 
 # tutorials
-java spring mvc framework: https://www.tutorialspoint.com/spring/spring_web_mvc_framework.htm
 sqlite: https://www.tutorialspoint.com/sqlite/
+bootstrap & jquery: https://www.codecademy.com/
