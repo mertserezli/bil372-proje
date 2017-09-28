@@ -7,7 +7,7 @@ html {
 }
 
 body {
-  background: #c1bdba;
+  background-image: url(https://wallpaperbrowse.com/media/images/gradient-background.jpg);
   font-family: 'Titillium Web', sans-serif;
 }
 
@@ -24,7 +24,7 @@ a:hover {
 .form {
   background: rgba(19, 35, 47, 0.9);
   padding: 40px;
-  max-width: 600px;
+  max-width: 900px;
   margin: 40px auto;
   border-radius: 4px;
   box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
