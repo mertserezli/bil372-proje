@@ -14,3 +14,6 @@ java web application tutorial: https://www.youtube.com/watch?v=Av6zh817QEc <br /
 install: http://geronimo.apache.org/downloads.html <br />
 hata giderme ile ilgili: http://geronimo.apache.org/GMOxDOC22/installing-geronimo-eclipse-plugin.html <br />
 https://stackoverflow.com/questions/25086930/main-not-found-starting-apache-geronimo <br />
+
+# sqlite jdbc jar ekleme hata giderme
+https://stackoverflow.com/questions/12669863/class-not-found-add-jar-via-eclipse
