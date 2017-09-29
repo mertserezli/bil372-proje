@@ -5,7 +5,8 @@ gereksinimler:
 https://docs.google.com/document/d/1bjp4vAN6pYF0y3Td106JSlHAjR7c9G828EIaizwBOX4/edit?usp=sharing<br />
 
 # tutorials
-sqlite: https://www.tutorialspoint.com/sqlite/ <br />
+sqlite: https://www.tutorialspoint.com/sqlite/ <br /> 
+http://www.sqlitetutorial.net/sqlite-java/ <br /> 
 bootstrap & jquery: https://www.codecademy.com/ <br />
 java web application tutorial: https://www.youtube.com/watch?v=Av6zh817QEc <br />
 
