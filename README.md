@@ -15,5 +15,7 @@ install: http://geronimo.apache.org/downloads.html <br />
 hata giderme ile ilgili: http://geronimo.apache.org/GMOxDOC22/installing-geronimo-eclipse-plugin.html <br />
 https://stackoverflow.com/questions/25086930/main-not-found-starting-apache-geronimo <br />
 
-# sqlite jdbc jar ekleme hata giderme
-https://stackoverflow.com/questions/12669863/class-not-found-add-jar-via-eclipse
+# sqlite ilgili şeyler
+https://stackoverflow.com/questions/12669863/class-not-found-add-jar-via-eclipse <br />
+https://stackoverflow.com/questions/20817417/where-to-keep-sqlite-db-file-in-java-dynamic-web-project <br />
+https://github.com/sqlitebrowser/sqlitebrowser
