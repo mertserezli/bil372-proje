@@ -13,7 +13,7 @@
 <body>
 	<div class="form">
 
-          <h1>Forgot Your Password!</h1>
+          <h1>Forgot Your Password?</h1>
           
           <form action="/" method="post">
           
