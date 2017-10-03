@@ -13,5 +13,6 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="/home/cem/Downloads/sqlite-jdbc-3.20.0.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

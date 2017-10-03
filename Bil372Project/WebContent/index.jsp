@@ -56,7 +56,7 @@
             <input type="password"required autocomplete="off"/>
           </div>
           
-          <button type="submit" class="button button-block"/>Get Started</button>
+          <button type="submit" class="button button-block">Get Started</button>
           
           </form>
 
@@ -81,9 +81,9 @@
             <input type="password"required autocomplete="off"/>
           </div>
           
-          <p class="forgot"><a href="#">Forgot Password?</a></p>
+          <p class="forgot"><a href="forgotPassword.jsp">Forgot Password?</a></p>
           
-          <button class="button button-block"/>Log In</button>
+          <button class="button button-block">Log In</button>
           
           </form>
 
