@@ -1,6 +1,7 @@
 package dataAccess;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
@@ -11,15 +12,21 @@ public class loginDAO {
 	static ResultSet rs = null;
 
 	public static UserBean login(UserBean bean) {
-		Statement stmt = null;
+		//Statement stmt = null;
+		PreparedStatement ps=null;
 		String username = bean.getUsername();
 		String password = bean.getPassword();
-		String searchQuery = "select * from EMPLOYEE where Username='" + username + "' AND Password='" + password + "'";
+		String searchQuery = "select * from EMPLOYEE where Username=? AND Password=?";//prepared statement icin query degistirildi (cem) 5.11.2017
 		try {
 			ConnectionManager connect = new ConnectionManager();
 			currentCon = connect.getConnection();
-			stmt = currentCon.createStatement();
-			rs = stmt.executeQuery(searchQuery);
+			//prepared statment eklentisi yapıldı (cem) 5.11.2017
+			ps=currentCon.prepareStatement(searchQuery);
+			ps.setString(1,username);
+			ps.setString(2, password);
+			//stmt = currentCon.createStatement(); cikarildi (cem) 5.11.2017
+			rs=ps.executeQuery();
+			//rs = stmt.executeQuery(searchQuery); cikarildi (cem) 5.11.2017
 			boolean more = rs.next();
 			if (!more) {
 				bean.setValid(false);
@@ -49,12 +56,12 @@ public class loginDAO {
 				}
 				rs = null;
 			}
-			if (stmt != null) {
+			if (ps != null) {
 				try {
-					stmt.close();
+					ps.close();
 				} catch (Exception e) {
 				}
-				stmt = null;
+				ps = null;
 			}
 			if (currentCon != null) {
 				try {
