@@ -31,8 +31,11 @@ public class ForgotPasswordServlet extends HttpServlet{
 			if (user.getEmail()==null) {
 				pw.println("<h1>No such user exists!</h1> <br/>");
 			} else{
-				SendMail.sendMail(user);
-				pw.println("<h1>Mail has been sent to your email! "+user.getEmail()+"</h1><br/>");
+				boolean success=SendMail.sendMail(user);
+				if(success)
+					pw.println("<h1>Mail has been sent to your email! "+user.getEmail()+"</h1><br/>");
+				else
+					pw.println("<h1>Problem occured while sending email!</h1>");
 			}
 				
 		} catch (Throwable theException) {
