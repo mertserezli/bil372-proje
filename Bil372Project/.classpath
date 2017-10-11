@@ -13,8 +13,6 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/cem/Downloads/sqlite-jdbc-3.20.0.jar"/>
-	<classpathentry kind="lib" path="/home/cem/Downloads/jaf-1.1.1/activation.jar"/>
-	<classpathentry kind="lib" path="/home/cem/Downloads/javamail-1.4.5/mail.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/javax.mail.1.4.6.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
