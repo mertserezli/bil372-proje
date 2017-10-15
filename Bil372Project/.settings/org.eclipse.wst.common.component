@@ -2,7 +2,7 @@
     <wb-module deploy-name="Bil372Project">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
-        <property name="java-output-path" value="/Bil372Project/build/classes"/>
         <property name="context-root" value="Bil372Project"/>
+        <property name="java-output-path" value="/Bil372Project/build/classes"/>
     </wb-module>
 </project-modules>
