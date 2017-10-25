@@ -21,39 +21,51 @@
       </ul>
       
       <div class="tab-content">
+      
         <div id="signup">   
           <h1>Sign Up for Free</h1>
           
-          <form action="/" method="post">
+          <form action="SignUpServlet" method="get">
           
           <div class="top-row">
             <div class="field-wrap">
               <label>
                 First Name<span class="req">*</span>
               </label>
-              <input type="text" required autocomplete="off" />
+              <input type="text" required autocomplete="off" name="firstname"/>
             </div>
         
             <div class="field-wrap">
               <label>
                 Last Name<span class="req">*</span>
               </label>
-              <input type="text"required autocomplete="off"/>
+              <input type="text"required autocomplete="off" name="lastname"/>
             </div>
           </div>
-
+			<div class="field-wrap">
+            <label>
+              Username<span class="req">*</span>
+            </label>
+            <input type="text"required autocomplete="off" name="username"/>
+          </div>
+          <div class="field-wrap">
+            <label>
+              Job Title<span class="req">*</span>
+            </label>
+            <input type="text"required autocomplete="off" name="jobtitle"/>
+          </div>
           <div class="field-wrap">
             <label>
               Email Address<span class="req">*</span>
             </label>
-            <input type="email"required autocomplete="off"/>
+            <input type="email"required autocomplete="off" name="email"/>
           </div>
           
           <div class="field-wrap">
             <label>
               Set A Password<span class="req">*</span>
             </label>
-            <input type="password"required autocomplete="off"/>
+            <input type="password"required autocomplete="off" name="password"/>
           </div>
           
           <button type="submit" class="button button-block">Get Started</button>

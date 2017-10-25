@@ -10,9 +10,8 @@ public class ForgotPasswordDAO {
 
 	static Connection currentCon = null;
 	static ResultSet rs = null;
-
+	static PreparedStatement ps=null;
 	public static UserBean getPassword(UserBean bean) {
-		PreparedStatement ps=null;
 		String username = bean.getUsername();
 		String searchQuery = "select * from EMPLOYEE where Username=?";
 		try {

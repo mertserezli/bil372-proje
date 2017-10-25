@@ -12,49 +12,39 @@ public class SendMail {
 
 	   public static boolean sendMail(UserBean user) {    
 	      // Recipient's email ID needs to be mentioned.
-	      String to = "c.ozen@etu.edu.tr";
+		   	final String username = "cemsozens96@gmail.com";
+			final String password = "55numara";
 
-	      // Sender's email ID needs to be mentioned
-	      final String from = "cemsozens@hotmail.com";
+			Properties props = new Properties();
+			props.put("mail.smtp.auth", "true");
+			props.put("mail.smtp.starttls.enable", "true");
+			props.put("mail.smtp.host", "smtp.gmail.com");
+			props.put("mail.smtp.port", "587");
 
-	      // Assuming you are sending email from localhost
-	      String host = "localhost";
+			Session session = Session.getInstance(props,
+			  new javax.mail.Authenticator() {
+				protected PasswordAuthentication getPasswordAuthentication() {
+					return new PasswordAuthentication(username, password);
+				}
+			  });
 
-	      // Get system properties
-	      Properties properties = System.getProperties();
+			try {
 
-	      // Setup mail server
-	      properties.setProperty("mail.smtp.host", host);
+				Message message = new MimeMessage(session);
+				message.setFrom(new InternetAddress("cemsozens96@gmail.com"));
+				message.setRecipients(Message.RecipientType.TO,
+					InternetAddress.parse("cemsozens96@gmail.com"));
+				message.setSubject("Testing Subject");
+				message.setText("Dear Mail Crawler,"
+					+ "\n\n No spam to my email, please!");
 
-	      // Get the default Session object.
-	      Session session = Session.getInstance(properties, new Authenticator() {                
-              protected PasswordAuthentication getPasswordAuthentication() {
-                  return new PasswordAuthentication(from,"10numara");
-              }
-          });
+				Transport.send(message);
 
-	      try {
-	         // Create a default MimeMessage object.
-	         MimeMessage message = new MimeMessage(session);
+				return true;
 
-	         // Set From: header field of the header.
-	         message.setFrom(new InternetAddress(from));
-
-	         // Set To: header field of the header.
-	         message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-
-	         // Set Subject: header field
-	         message.setSubject("This is the Subject Line!");
-
-	         // Now set the actual message
-	         message.setText("This is actual message");
-
-	         // Send message
-	         Transport.send(message);
-	         return true;
-	      }catch (MessagingException mex) {
-	         mex.printStackTrace();
-	         return false;
-	      }
+			} catch (MessagingException e) {
+				e.printStackTrace();
+				return false;
+			}
 	}
 }
