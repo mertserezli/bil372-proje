@@ -15,6 +15,17 @@ http://www.sqlitetutorial.net/sqlite-java/ <br />
 bootstrap & jquery: https://www.codecademy.com/ <br />
 java web application tutorial: https://www.youtube.com/watch?v=Av6zh817QEc <br />
 
+# Postgresql bağlanma
+burada 3. ve 4. stepleri yapmalısınız.<br />
+https://aws.amazon.com/getting-started/tutorials/create-connect-postgresql-db/<br />
+sqlworkbench programını çalıştırmak için:<br />
+1. chmod u+x ./sqlworkbench.sh<br />
+2. ./sqlworkbench.sh<br />
+çalıştıktan sonra bazı ayarlar yapıyorsunuz burada anlatıyor:<br />
+https://data36.com/install-sql-workbench-postgresql/<br />
+bizim için URL şöyle: jdbc:postgresql://projectmanagementdb.c7iazxagbuhz.eu-central-1.rds.amazonaws.com/projectmanagementdb<br />
+username ve password whatsapp grubunda<br />
+
 # tomcat yüklemekle ilgili şeyler
 install:
 1)wget ftp.itu.edu.tr/Mirror/Apache/tomcat/tomcat-7/v7.0.82/bin/apache-tomcat-7.0.82.tar.gz <br />
