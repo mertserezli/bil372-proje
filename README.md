@@ -12,8 +12,10 @@ https://docs.google.com/spreadsheets/d/1f5K-yC6wXJK9xLTAo61rmE2uII3kzlx0ccOCrtaV
 # tutorials
 sqlite: https://www.tutorialspoint.com/sqlite/ <br /> 
 http://www.sqlitetutorial.net/sqlite-java/ <br /> 
-bootstrap & jquery: https://www.codecademy.com/ <br />
+html, css, bootstrap, javascript, jquery, sql: https://www.codecademy.com/ <br />
 java web application tutorial: https://www.youtube.com/watch?v=Av6zh817QEc <br />
+https://www.journaldev.com/1854/java-web-application-tutorial-for-beginners <br />
+
 
 # Postgresql bağlanma
 burada 3. ve 4. stepleri yapmalısınız.<br />
