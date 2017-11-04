@@ -6,9 +6,8 @@ public class ProfileLoader {
 
 	public static String GetProfilePhoto(UserBean user){
 		if(user.getImage()!=null){
-			return " <img src=\"EpmloyeePictures\""+user.getUsername()+" class=\"img-rounded\" alt=\"Cinque Terre\"> ";
+			return " <img src=\"EmployeePictures\\"+user.getImage()+"\" class=\"img-circle\" style=\"width:300px;height:300px;\"> ";
 		}
-		return "";
-	}
-	
+		return " <img src=\"EmployeePictures\\anonim\" class=\"img-circle\"> ";
+	}	
 }
