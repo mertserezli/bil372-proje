@@ -20,6 +20,7 @@ public class SearchServlet extends HttpServlet {
 			throws ServletException, java.io.IOException {
 		
 		List<UserBean> users = null;
+		List<ProjectBean> projects = null;
 		String searchType = request.getParameter("searchType");
 		String toSearch = request.getParameter("searchBar");
 		PrintWriter pw = response.getWriter();
@@ -35,7 +36,15 @@ public class SearchServlet extends HttpServlet {
 			}
 		}
 		else{
-			
+			try {
+				projects = searchDAO.searchForProject(toSearch);
+			} catch (SQLException e) {
+	            throw new ServletException("Error when getting projects from DB", e);
+	        }
+			for(ProjectBean p : projects)
+			{
+				pw.println(p.getTitle());
+			}
 		}
 	}
 }

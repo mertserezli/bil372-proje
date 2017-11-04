@@ -67,4 +67,53 @@ public class searchDAO {
 
         return result;
     }
+	
+public static List<ProjectBean> searchForProject(String projectRequest) throws SQLException {
+        
+		List<ProjectBean> result = new ArrayList<ProjectBean>();
+        PreparedStatement ps = null;
+        String searchQuery = "Select * From PROJECT Where UPPER(Title) LIKE UPPER('%" + projectRequest + "%')";
+        
+        try {
+            ConnectionManager connect = new ConnectionManager();
+            currentCon = connect.getConnection();
+			ps = currentCon.prepareStatement(searchQuery);
+			rs = ps.executeQuery();
+			
+            while (rs.next()) {
+                ProjectBean project = new ProjectBean();
+                project.setTitle(rs.getString("Title"));
+                project.setDescription(rs.getString("Description"));
+                project.setPid(rs.getString("Pid"));
+                project.setState(rs.getString("State"));
+                project.setVotenum(rs.getInt("Votenum"));
+                project.setCreationDate(rs.getDate("CreationDate"));
+                result.add(project);
+            }
+        } finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (Exception e) {
+				}
+				rs = null;
+			}
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (Exception e) {
+				}
+				ps = null;
+			}
+			if (currentCon != null) {
+				try {
+					currentCon.close();
+				} catch (Exception e) {
+				}
+				currentCon = null;
+			}
+		}
+
+        return result;
+    }
 }
