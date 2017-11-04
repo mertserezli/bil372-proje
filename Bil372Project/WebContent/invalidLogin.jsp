@@ -9,6 +9,6 @@
  		<title>Invalid Login</title> 
  	</head> 
  	<body> 
- 		<center> Sorry, you are not a registered user! Please sign up first </center> 
+ 		<center> Sorry, you are not a registered user! Please sign up first. </center> 
  	</body> 
  </html>
