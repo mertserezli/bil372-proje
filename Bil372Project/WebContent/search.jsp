@@ -10,9 +10,9 @@
 		<input type="text" autocomplete="off" name="searchBar"/>
        	<label><span class="req"></span></label>
        		<ul class="tab-group">
-				<label for="users">Users</label>
+				<label for="usersRB">Users</label>
        			<input type="radio" id="usersRB" name="searchType" onclick = \"getAnswer('users') value="users" checked="checked"/>
-       			<label for="projects">Projects</label>
+       			<label for="projectsRB">Projects</label>
     	    	<input type="radio" id="projectsRB" name="searchType" onclick = \"getAnswer('projects') value="projects"/>
 	    	</ul>
 	 	   	<button type="submit" class="button button-block">Search</button>
