@@ -20,13 +20,12 @@ public class searchDAO {
         
 		List<UserBean> result = new ArrayList<UserBean>();
         PreparedStatement ps = null;
-        String searchQuery = "Select DISTINCT * From EMPLOYEE Where UPPER(Username) LIKE UPPER('%?%')";
+        String searchQuery = "Select DISTINCT * From EMPLOYEE Where UPPER(Username) LIKE UPPER('%"+usernameRequest+"%')";
         
         try {
             ConnectionManager connect = new ConnectionManager();
             currentCon = connect.getConnection();
 			ps = currentCon.prepareStatement(searchQuery);
-			ps.setString(1, usernameRequest);
 			rs = ps.executeQuery();
 			
             while (rs.next()) {

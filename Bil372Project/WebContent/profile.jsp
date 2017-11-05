@@ -14,10 +14,10 @@
 </head>
 <body>
  <ul>
-  <li><a href="Profile.jsp"><%=currentUser.getUsername() %></a></li>
+  <li><a href="profile.jsp"><%=currentUser.getUsername() %></a></li>
   <li><a href="search.jsp">Search</a></li>
-  <li><a href="#">My projects</a></li>
-  <li><a href="#">Logout</a></li>
+  <li><a href="#">My Tasks</a></li>
+  <li><a href="index.jsp">Logout</a></li>
 </ul> 
 
   
