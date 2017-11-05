@@ -32,7 +32,7 @@ public class SearchServlet extends HttpServlet {
 	        }
 			for(UserBean u : users)
 			{
-				pw.println(u.getUsername());
+				pw.println("<h1>" + u.getUsername() + "</hl><br/>");
 			}
 		}
 		else{
@@ -43,7 +43,7 @@ public class SearchServlet extends HttpServlet {
 	        }
 			for(ProjectBean p : projects)
 			{
-				pw.println(p.getTitle());
+				pw.println("<h1>" + p.getTitle() + "</hl><br/>");
 			}
 		}
 	}
