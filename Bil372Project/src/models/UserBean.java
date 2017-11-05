@@ -75,10 +75,6 @@ public class UserBean {
 		this.LastName = lastName;
 	}
 
-	public void setUsername(String username) {
-		this.UserName = username;
-	}
-
 	public String getEmail() {
 		return Email;
 	}
