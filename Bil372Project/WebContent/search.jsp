@@ -26,7 +26,7 @@
         			<label for="projects">Projects</label>
     		    	<input type="radio" id="projectsRB" name="searchType" onclick = \"getAnswer('projects') value="projects"/>
 	    		</ul>
-	 	   		<button type="submit" class="button button-block">Search</button>
+	 	   		<input type="submit" class="button button-block" value="Search">
 	    	</form>
     	</div>
 	</div>

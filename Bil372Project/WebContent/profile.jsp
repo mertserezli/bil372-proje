@@ -15,7 +15,7 @@
 <body>
  <ul>
   <li><a href="Profile.jsp"><%=currentUser.getUsername() %></a></li>
-  <li><a href="#">Search</a></li>
+  <li><a href="search.jsp">Search</a></li>
   <li><a href="#">My projects</a></li>
   <li><a href="#">Logout</a></li>
 </ul> 
