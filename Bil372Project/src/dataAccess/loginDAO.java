@@ -12,21 +12,18 @@ public class loginDAO {
 	static ResultSet rs = null;
 
 	public static UserBean login(UserBean bean) {
-		//Statement stmt = null;
-		PreparedStatement ps=null;
+		// Statement stmt = null;
+		PreparedStatement ps = null;
 		String username = bean.getUsername();
 		String password = bean.getPassword();
-		String searchQuery = "select * from EMPLOYEE where Username=? AND Password=?";//prepared statement icin query degistirildi (cem) 5.11.2017
+		String searchQuery = "select * from EMPLOYEE where Username=? AND Password=?";
 		try {
 			ConnectionManager connect = new ConnectionManager();
 			currentCon = connect.getConnection();
-			//prepared statment eklentisi yapıldı (cem) 5.11.2017
-			ps=currentCon.prepareStatement(searchQuery);
-			ps.setString(1,username);
+			ps = currentCon.prepareStatement(searchQuery);
+			ps.setString(1, username);
 			ps.setString(2, password);
-			//stmt = currentCon.createStatement(); cikarildi (cem) 5.11.2017
-			rs=ps.executeQuery();
-			//rs = stmt.executeQuery(searchQuery); cikarildi (cem) 5.11.2017
+			rs = ps.executeQuery();
 			boolean more = rs.next();
 			if (!more) {
 				bean.setValid(false);
