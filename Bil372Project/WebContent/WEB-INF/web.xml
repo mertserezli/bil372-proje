@@ -15,6 +15,12 @@
     <servlet-name>LoginServlet</servlet-name>
     <servlet-class>servlets.LoginServlet</servlet-class>
   </servlet>
+   <servlet>
+    <description>Shows current user's tasks</description>
+    <display-name>TaskServlet</display-name>
+    <servlet-name>TaskServlet</servlet-name>
+    <servlet-class>servlets.TaskServlet</servlet-class>
+  </servlet>
   <servlet>
     <description>Does signUp operation</description>
     <display-name>SignUpServlet</display-name>
@@ -45,6 +51,10 @@
   <servlet-mapping>
     <servlet-name>SignUpServlet</servlet-name>
     <url-pattern>/SignUpServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>TaskServlet</servlet-name>
+    <url-pattern>/TaskServlet</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>LoginServlet</servlet-name>

@@ -14,12 +14,13 @@ public class TaskDAO {
 	public static List<TaskBean> searchTasksForUser(String username) throws SQLException
 	{
 		List<TaskBean> tasks = new ArrayList<TaskBean>();
-		String searchQuery="";
+		String searchQuery="Select * From TASK LEFT JOIN PREREQUI_TASK USING(TID) Where Username=? ORDER BY deadline";
 		try
 		{
             ConnectionManager connect = new ConnectionManager();
             currentCon = connect.getConnection();
 			ps = currentCon.prepareStatement(searchQuery);
+			ps.setString(1,username);
 			rs = ps.executeQuery();
 			while(rs.next())
 			{
@@ -30,8 +31,9 @@ public class TaskDAO {
 				task.setDescription(rs.getString("description"));
 				task.setPerformanceCriteria(rs.getString("performancecriteria"));
 				task.setDeadline(rs.getDate("deadline"));
+				task.setPrerequisite(rs.getInt("PRETID"));
 				tasks.add(task);
-			}
+			}		
 		}
 		catch(Exception e)
 		{

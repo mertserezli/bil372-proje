@@ -5,12 +5,14 @@ import java.sql.Date;
 public class TaskBean {
 	private int Tid;
 	private int Pid;
+	private int Prerequisite;
 	private String Title;
 	private String Description;
 	private String Username;
 	private String PerformanceCriteria;
-	private TaskBean Prerequisite;
+	
 	private Date Deadline;
+	
 	
 	public int getTid() {
 		return Tid;
@@ -42,10 +44,10 @@ public class TaskBean {
 	public void setPerformanceCriteria(String performanceCriteria) {
 		PerformanceCriteria = performanceCriteria;
 	}
-	public TaskBean getPrerequisite() {
+	public int getPrerequisite() {
 		return Prerequisite;
 	}
-	public void setPrerequisite(TaskBean prerequisite) {
+	public void setPrerequisite(int prerequisite) {
 		Prerequisite = prerequisite;
 	}
 	public Date getDeadline() {
