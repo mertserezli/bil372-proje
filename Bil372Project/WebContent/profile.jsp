@@ -1,3 +1,4 @@
+<%@page import="otherSources.ProfileLoader"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     import="models.UserBean"
@@ -13,15 +14,19 @@
 </head>
 <body>
  <ul>
-  <li><a href="Profile.jsp"><%=currentUser.getUsername() %></a></li>
-  <li><a href="#">Search</a></li>
-  <li><a href="#">My projects</a></li>
-  <li><a href="#">About</a></li>
+  <li><a href="profile.jsp"><%=currentUser.getUsername() %></a></li>
+  <li><a href="search.jsp">Search</a></li>
+  <li><a href="mytasks.jsp">My Tasks</a></li>
+  <li><a href="index.jsp">Logout</a></li>
 </ul> 
 
   
 <div class="card" style="text-align: center; border: thick;">
-  <img src="EmployeePictures/cemsozens" class="img-circle" width="304" height="236">
+  <%=ProfileLoader.GetProfilePhoto(currentUser) %>
+   <form action="UploadServlet" method="post" enctype="multipart/form-data" >
+  <input type="file" name="file" accept="image/*" >
+  <input type="submit" value="Change Picture">
+</form> 
   <h1><%=currentUser.getLastName()+","+currentUser.getFirstName() %></h1>
   <h2><%=currentUser.getJobTitle() %></h2>
   

@@ -15,21 +15,46 @@
     <servlet-name>LoginServlet</servlet-name>
     <servlet-class>servlets.LoginServlet</servlet-class>
   </servlet>
-  <servlet>
-    <description>sends password to users</description>
-    <display-name>ForgotPasswordServlet</display-name>
-    <servlet-name>ForgotPasswordServlet</servlet-name>
-    <servlet-class>servlets.ForgotPasswordServlet</servlet-class>
+   <servlet>
+    <description>Shows current user's tasks</description>
+    <display-name>TaskServlet</display-name>
+    <servlet-name>TaskServlet</servlet-name>
+    <servlet-class>servlets.TaskServlet</servlet-class>
   </servlet>
   <servlet>
     <description>Does signUp operation</description>
     <display-name>SignUpServlet</display-name>
     <servlet-name>SignUpServlet</servlet-name>
     <servlet-class>servlets.SignUpServlet</servlet-class>
+  </servlet><servlet>
+    <description>sends password to users</description>
+    <display-name>ForgotPasswordServlet</display-name>
+    <servlet-name>ForgotPasswordServlet</servlet-name>
+    <servlet-class>servlets.ForgotPasswordServlet</servlet-class>
   </servlet>
+  <servlet>
+  	<description>Searches for users or projects</description>
+  	<display-name>SearchServlet</display-name>
+  	<servlet-name>SearchServlet</servlet-name>
+  	<servlet-class>servlets.SearchServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>uploads user image</description>
+    <display-name>UploadServlet</display-name>
+    <servlet-name>UploadServlet</servlet-name>
+    <servlet-class>servlets.UploadServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UploadServlet</servlet-name>
+    <url-pattern>/UploadServlet</url-pattern>
+  </servlet-mapping>
   <servlet-mapping>
     <servlet-name>SignUpServlet</servlet-name>
     <url-pattern>/SignUpServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>TaskServlet</servlet-name>
+    <url-pattern>/TaskServlet</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>LoginServlet</servlet-name>
@@ -38,5 +63,9 @@
   <servlet-mapping>
     <servlet-name>ForgotPasswordServlet</servlet-name>
     <url-pattern>/ForgotPasswordServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>SearchServlet</servlet-name>
+  	<url-pattern>/SearchServlet</url-pattern>
   </servlet-mapping>
 </web-app>

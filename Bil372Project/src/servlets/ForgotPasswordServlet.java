@@ -13,8 +13,8 @@ import models.UserBean;
 import dataAccess.ForgotPasswordDAO;
 import dataAccess.loginDAO;
 
-public class ForgotPasswordServlet extends HttpServlet{
-	
+public class ForgotPasswordServlet extends HttpServlet {
+
 	/**
 	 * 
 	 */
@@ -22,22 +22,22 @@ public class ForgotPasswordServlet extends HttpServlet{
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, java.io.IOException {
-		PrintWriter pw=response.getWriter();
+		PrintWriter pw = response.getWriter();
 		try {
 			UserBean user = new UserBean();
-			String username=request.getParameter("username");
-			user.setUsername(username);
-			user=ForgotPasswordDAO.getPassword(user);
-			if (user.getEmail()==null) {
+			String username = request.getParameter("username");
+			user.setUserName(username);
+			user = ForgotPasswordDAO.getPassword(user);
+			if (user.getEmail() == null) {
 				pw.println("<h1>No such user exists!</h1> <br/>");
-			} else{
-				boolean success=SendMail.sendMail(user);
-				if(success)
-					pw.println("<h1>Mail has been sent to your email! "+user.getEmail()+"</h1><br/>");
+			} else {
+				boolean success = SendMail.sendMail(user);
+				if (success)
+					pw.println("<h1>Mail has been sent to your email! " + user.getEmail() + "</h1><br/>");
 				else
 					pw.println("<h1>Problem occured while sending email!</h1>");
 			}
-				
+
 		} catch (Throwable theException) {
 			System.out.println(theException);
 		}
