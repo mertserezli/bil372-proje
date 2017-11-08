@@ -22,7 +22,7 @@ public class ConnectionManager {
 			conn = DriverManager.getConnection(url, username, password);
 
 		} catch (SQLException e) {
-
+				e.printStackTrace();
 		}
 		if (conn == null)
 			System.out.println("hata conn null olmus");

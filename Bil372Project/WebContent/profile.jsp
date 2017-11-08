@@ -29,9 +29,11 @@
 </form> 
   <h1><%=currentUser.getLastName()+","+currentUser.getFirstName() %></h1>
   <h2><%=currentUser.getJobTitle() %></h2>
-  
-
   <a href="Contact.jsp"></a>
 </div>
+<div>
+  <h1>MY PROJECTS</h1>
+  <%=ProfileLoader.GetProjects(currentUser)%>
+  </div>
 </body>
 </html>
