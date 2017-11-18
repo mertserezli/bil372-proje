@@ -1,0 +1,37 @@
+form {
+	margin: 0 auto;
+	width: 250px;
+}
+
+body {
+	background-image:
+		url(https://wallpaperbrowse.com/media/images/gradient-background.jpg);
+	font-family: 'Titillium Web', sans-serif;
+}
+
+input[type="text"] {
+	font-size: 22px;
+	width: 220px;
+	display: block;
+	padding: 5px 10px;
+	border: 1px solid #a0b3b0;
+	border-radius: 0;
+	display: block;
+}
+
+input[type="radio"] {
+	display: inline;
+    margin-left: 25px;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+.wrapper {
+	text-align: center;
+}
+
+.button {
+	height: 30px;
+	width: 250px;
+	margin-top: 30px;
+}
