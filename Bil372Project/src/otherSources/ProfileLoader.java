@@ -30,7 +30,7 @@ public class ProfileLoader {
 		if(currentUser.getUsername().equals(currentProfile.getUsername())){
 			html+="<form action=\"UploadServlet\" method=\"post\" enctype=\"multipart/form-data\" >"
 					+ "<input type=\"file\" name=\"file\" accept=\"image/*\" >"
-					+"<input type=\"submit\" value=\"Change Picture\">";
+					+"<input type=\"submit\" value=\"Change Picture\"> </form> ";
 		}
 			
 		return html;
