@@ -28,7 +28,7 @@
   
 <div class="card" style="text-align: center; border: thick;">
   <%=ProfileLoader.GetProfilePhoto(currentProfile) %>
-   <%=ProfileLoader.getButtons(currentUser, currentProfile) %>
+   <%=ProfileLoader.GetButtons(currentUser, currentProfile) %>
 
   <h1><%=currentProfile.getLastName()+","+currentProfile.getFirstName() %></h1>
   <h2><%=currentProfile.getJobTitle() %></h2>
