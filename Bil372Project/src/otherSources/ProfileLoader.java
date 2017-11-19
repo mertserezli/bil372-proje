@@ -35,4 +35,11 @@ public class ProfileLoader {
 			
 		return html;
 	}
+	public static String getButtons2(UserBean currentUser,UserBean currentProfile){
+		String html="";
+		if(currentUser.getUsername().equals(currentProfile.getUsername())){
+			html+= "<div style=\"text-align: center;\"><a href=\"NewProject.jsp\">Create New Project</a></div>";
+		}
+		return html;
+	}
 }

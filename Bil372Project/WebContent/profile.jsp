@@ -19,7 +19,7 @@
 </head>
 <body>
  <ul>
-  <li><a href="profile.jsp"><%=currentProfile.getUsername() %></a></li>
+  <li><a href="profile.jsp?username=<%=currentUser.getUsername()%>"><%=currentUser.getUsername() %></a></li>
   <li><a href="search.jsp">Search</a></li>
   <li><a href="mytasks.jsp">My Tasks</a></li>
   <li><a href="mymessages.jsp">My Messages</a></li>
@@ -39,8 +39,6 @@
   <h1>MY PROJECTS</h1>
   <%=ProfileLoader.GetProjects(currentProfile)%>
   </div>
-  <div style="text-align: center;">
-  <a href="NewProject.jsp">Create New Project</a>
-  </div>
+ <%=ProfileLoader.getButtons2(currentUser, currentProfile) %>
 </body>
 </html>
