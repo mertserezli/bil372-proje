@@ -26,7 +26,7 @@ public class ProjectServlet extends HttpServlet {
 		PrintWriter pw = response.getWriter();
 		UserBean currentUser = (UserBean)request.getSession().getAttribute("currentSessionUser");
 		String date=request.getParameter("date");
-		ProjectBean currentProject=(ProjectBean)request.getAttribute("currentProject");
+		ProjectBean currentProject=(ProjectBean) request.getSession().getAttribute("currentProject");
 		if(date==null){
 			pw.println("Date cannot be empty!");
 			return;

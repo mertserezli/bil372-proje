@@ -27,7 +27,7 @@
 <div class="card" style="text-align: center; border: thick;">
   <%=ProfileLoader.GetProfilePhoto(currentUser) %>
    <%=ProfileLoader.getButtons(currentUser, currentProfile) %>
-</form> 
+
   <h1><%=currentUser.getLastName()+","+currentUser.getFirstName() %></h1>
   <h2><%=currentUser.getJobTitle() %></h2>
   <a href="Contact.jsp"></a>
