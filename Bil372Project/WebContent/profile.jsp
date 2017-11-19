@@ -35,5 +35,8 @@
   <h1>MY PROJECTS</h1>
   <%=ProfileLoader.GetProjects(currentUser)%>
   </div>
+  <div style="text-align: center;">
+  <a href="NewProject.jsp">Create New Project</a>
+  </div>
 </body>
 </html>

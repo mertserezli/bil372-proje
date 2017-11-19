@@ -1,9 +1,12 @@
 package dataAccess;
 
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Arrays;
+import java.util.Calendar;
 
 import models.ProjectBean;
 
@@ -45,6 +48,25 @@ public class ProjectDAO {
 	public static ProjectBean setNewMeeting(ProjectBean project,String date){
 		
 		return project;
+	}
+	public static boolean createProject(ProjectBean project){
+		String insertQuery="insert into project (title,description,tags,creation_date) values (?,?,?,?)";
+		try{
+			connect=new ConnectionManager();
+			currentCon=connect.getConnection();
+			ps=currentCon.prepareStatement(insertQuery);
+			ps.setString(1, project.getTitle());
+			ps.setString(2, project.getDescription());
+			Array tags=currentCon.createArrayOf("TEXT", project.getTags());
+			ps.setArray(3,tags);
+			ps.setDate(4,new java.sql.Date(Calendar.getInstance().getTime().getTime()));
+			ps.executeUpdate();
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+		return true;
 	}
 	
 }
