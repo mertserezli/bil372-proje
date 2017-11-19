@@ -33,33 +33,55 @@ public class ProjectDAO {
 				//project.setState(rs.get);
 				project.setTitle(rs.getString("title"));
 				project.setVotenum(rs.getInt("votenum"));
-				project.setTags((String[])rs.getArray("tags").getArray());
-				project.setMeeting_dates((Date[])rs.getArray("meeting_dates").getArray());
+				try{
+					project.setTags((String[])rs.getArray("tags").getArray());
+					
+				}
+				catch(Exception e){
+					e.printStackTrace();
+				}
+				try{
+					project.setMeeting_dates((Date[])rs.getArray("meeting_dates").getArray());
+				}
+				catch(Exception e){
+					e.printStackTrace();
+				}
+				
 			}
 			else{
 				project.setTitle("Project Not Found");
 			}
 		}
 		catch(Exception e){
-			
+			e.printStackTrace();
 		}
 		return project;
 	}
 	
 	public static ProjectBean setNewMeeting(ProjectBean project,String date){
 		int i;
+		Date[] meetings=null;
 		String query="update project set meeting_dates=? where pid=?";
-		Date[] meetings=new Date[project.getMeeting_dates().length+1];
 		String day=date.substring(0,date.indexOf("."));
 		date=date.substring(date.indexOf(".")+1);
 		String month=date.substring(0,date.indexOf("."));
 		date=date.substring(date.indexOf(".")+1);
 		String year=date;
 		Date newMeeting = new Date(Integer.parseInt(year)-1900,Integer.parseInt(month)-1,Integer.parseInt(day));
-		for(i=0;i<project.getMeeting_dates().length;i++){
-			meetings[i]=project.getMeeting_dates()[i];
+		
+		if(project.getMeeting_dates()!=null){
+			meetings=new Date[project.getMeeting_dates().length+1];
+			
+			for(i=0;i<project.getMeeting_dates().length;i++){
+				meetings[i]=project.getMeeting_dates()[i];
+			}
+			meetings[i]=newMeeting;
 		}
-		meetings[i]=newMeeting;
+		else{
+			meetings=new Date[1];
+			meetings[0]=newMeeting;
+		}
+		
 		try{
 			connect=new ConnectionManager();
 			currentCon=connect.getConnection();
