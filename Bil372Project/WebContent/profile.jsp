@@ -10,11 +10,14 @@
 <title>Profile Page</title>
 <link rel="stylesheet" href="css/profile.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<% UserBean currentUser = (UserBean)session.getAttribute("currentSessionUser");%>
+<% UserBean currentUser = (UserBean)session.getAttribute("currentSessionUser");
+   UserBean currentProfile=new UserBean();
+   currentProfile.setUserName(request.getParameter("username"));
+   request.setAttribute("currentProfile",currentProfile);%>
 </head>
 <body>
  <ul>
-  <li><a href="profile.jsp"><%=currentUser.getUsername() %></a></li>
+  <li><a href="profile.jsp"><%=currentProfile.getUsername() %></a></li>
   <li><a href="search.jsp">Search</a></li>
   <li><a href="mytasks.jsp">My Tasks</a></li>
   <li><a href="index.jsp">Logout</a></li>
@@ -23,9 +26,7 @@
   
 <div class="card" style="text-align: center; border: thick;">
   <%=ProfileLoader.GetProfilePhoto(currentUser) %>
-   <form action="UploadServlet" method="post" enctype="multipart/form-data" >
-  <input type="file" name="file" accept="image/*" >
-  <input type="submit" value="Change Picture">
+   <%=ProfileLoader.getButtons(currentUser, currentProfile) %>
 </form> 
   <h1><%=currentUser.getLastName()+","+currentUser.getFirstName() %></h1>
   <h2><%=currentUser.getJobTitle() %></h2>

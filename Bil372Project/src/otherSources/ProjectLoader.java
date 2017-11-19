@@ -30,18 +30,10 @@ public class ProjectLoader {
 	
 	public static String getWorkers(ProjectBean project){
 		String html="";
-<<<<<<< HEAD
-		ArrayList<UserBean> workers = Emp_ProjectDAO.getWorkers(project);
-		if(workers!=null){
-			for(UserBean worker:workers){
-				html+=worker.getUsername()+", ";
-			}
-			html=html.substring(0, html.lastIndexOf(","));
-=======
+
 		ArrayList<UserBean> workers = Work_Emp_ProDAO.getWorkers(project);
 		for(UserBean worker:workers){
 			html+=worker.getUsername()+", ";
->>>>>>> 8816b11f1c698d5873827adb7b0df2e2b3371915
 		}
 		return html;
 	}

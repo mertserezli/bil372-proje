@@ -23,4 +23,16 @@ public class ProfileLoader {
 		}
 		return html;
 	}
+
+
+	public static String getButtons(UserBean currentUser,UserBean currentProfile){
+		String html="";
+		if(currentUser.getUsername().equals(currentProfile.getUsername())){
+			html+="<form action=\"UploadServlet\" method=\"post\" enctype=\"multipart/form-data\" >"
+					+ "<input type=\"file\" name=\"file\" accept=\"image/*\" >"
+					+"<input type=\"submit\" value=\"Change Picture\">";
+		}
+			
+		return html;
+	}
 }
