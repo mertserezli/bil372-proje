@@ -17,22 +17,26 @@ public class ProjectLoader {
 		Date[] meetings=project.getMeeting_dates();
 		java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
 		System.out.println(date);
-		for(Date d:meetings){
-			if(d.compareTo(date)>0){
-				html+=d+", ";
+		if(meetings!=null){
+			for(Date d:meetings){
+				if(d.compareTo(date)>0){
+					html+=d+", ";
+				}
 			}
+			html=html.substring(0, html.lastIndexOf(","));
 		}
-		html=html.substring(0, html.lastIndexOf(","));
 		return html;
 	}
 	
 	public static String getWorkers(ProjectBean project){
 		String html="";
 		ArrayList<UserBean> workers = Emp_ProjectDAO.getWorkers(project);
-		for(UserBean worker:workers){
-			html+=worker.getUsername()+", ";
+		if(workers!=null){
+			for(UserBean worker:workers){
+				html+=worker.getUsername()+", ";
+			}
+			html=html.substring(0, html.lastIndexOf(","));
 		}
-		html=html.substring(0, html.lastIndexOf(","));
 		return html;
 	}
 }
