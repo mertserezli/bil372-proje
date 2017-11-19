@@ -10,10 +10,9 @@ import models.UserBean;
 public class loginDAO {
 	static Connection currentCon = null;
 	static ResultSet rs = null;
-
+	static PreparedStatement ps = null;
+	
 	public static UserBean login(UserBean bean) {
-		// Statement stmt = null;
-		PreparedStatement ps = null;
 		String username = bean.getUsername();
 		String password = bean.getPassword();
 		String searchQuery = "select * from EMPLOYEE where Username=? AND Password=?";

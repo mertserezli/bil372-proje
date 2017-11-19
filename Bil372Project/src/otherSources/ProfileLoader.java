@@ -19,7 +19,7 @@ public class ProfileLoader {
 		String html="";
 		ArrayList<ProjectBean> projects=UploadDAO.loadProjects(user);
 		for(ProjectBean project:projects){
-			html+="<a href=\"projects.jsp?pid="+project.getPid()+"\">"+project.getTitle()+"</a>";
+			html+="<a href=\"project.jsp?pid="+project.getPid()+"\"style=\"display:block\">"+project.getTitle()+"</a>";
 		}
 		return html;
 	}

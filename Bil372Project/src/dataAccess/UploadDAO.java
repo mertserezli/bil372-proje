@@ -54,8 +54,8 @@ public class UploadDAO {
 				rs=ps.executeQuery();
 				while(rs.next()){
 					ProjectBean project=new ProjectBean();
-					project.setPid(rs.getString("pid"));
-					project.setState(rs.getString("states"));
+					project.setPid(rs.getInt("pid"));
+					project.setState(rs.getString("state"));
 					project.setTitle(rs.getString("title"));
 					project.setDescription(rs.getString("description"));
 					project.setCreationDate(rs.getDate("creation_date"));

@@ -3,18 +3,20 @@ package models;
 import java.sql.Date;
 
 public class ProjectBean {
-	private String Pid;
+	private int Pid;
 	private String Title;
 	private String Description;
 	private Date CreationDate;
 	private int Votenum;
 	private String State;
+	private String[] Tags;
+	private Date[] meeting_dates;
 	
-	public String getPid() {
+	public int getPid() {
 		return Pid;
 	}
 	
-	public void setPid(String pid) {
+	public void setPid(int pid) {
 		Pid = pid;
 	}
 	
@@ -56,6 +58,22 @@ public class ProjectBean {
 	
 	public void setState(String state) {
 		State = state;
+	}
+
+	public String[] getTags() {
+		return Tags;
+	}
+
+	public void setTags(String[] tags) {
+		Tags = tags;
+	}
+
+	public Date[] getMeeting_dates() {
+		return meeting_dates;
+	}
+
+	public void setMeeting_dates(Date[] meeting_dates) {
+		this.meeting_dates = meeting_dates;
 	}
 	
 }
