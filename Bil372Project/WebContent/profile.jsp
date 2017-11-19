@@ -37,8 +37,8 @@
 </div>
 <div>
   <h1>MY PROJECTS</h1>
-  <%=ProfileLoader.GetProjects(currentProfile)%>
-  </div>
- <%=ProfileLoader.getButtons2(currentUser, currentProfile) %>
+ 	<%=ProfileLoader.GetProjects(currentProfile)%>
+</div>
+	<%=ProfileLoader.GetButtons2(currentUser, currentProfile) %>
 </body>
 </html>
