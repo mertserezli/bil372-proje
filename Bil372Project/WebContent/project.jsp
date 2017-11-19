@@ -36,6 +36,8 @@
 	<input type="text" placeholder="ex:dd.MM.YYYY" name="date">
 	<input type="submit" value="Add meeting">
 </form>
+<%=ProjectLoader.getInveteLink(project,currentUser) %>
+
 
 </body>
 </html>

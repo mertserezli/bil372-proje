@@ -36,4 +36,19 @@ public class Work_Emp_ProDAO {
 		}
 		return workers;
 	}
+	public static boolean addEmployee(UserBean user,ProjectBean project){
+		String query="insert into work_emp_pro (pid,username) values(?,?)";
+		try{
+			connect=new ConnectionManager();
+			currentCon=connect.getConnection();
+			ps=currentCon.prepareStatement(query);
+			ps.setInt(1,project.getPid());
+			ps.setString(2, user.getUsername());
+			ps.executeUpdate();
+		}
+		catch(Exception e){
+			e.printStackTrace();return false;
+		}
+		return true;
+	}
 }

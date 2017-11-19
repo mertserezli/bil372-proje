@@ -6,6 +6,7 @@ import java.util.Calendar;
 
 import org.apache.catalina.User;
 
+import dataAccess.Man_Emp_ProDAO;
 import dataAccess.Work_Emp_ProDAO;
 import models.ProjectBean;
 import models.UserBean;
@@ -34,6 +35,19 @@ public class ProjectLoader {
 		ArrayList<UserBean> workers = Work_Emp_ProDAO.getWorkers(project);
 		for(UserBean worker:workers){
 			html+="<a href=\"profile.jsp?username="+worker.getUsername()+"\">"+worker.getUsername()+"</a>"+"<br>";
+		}
+		return html;
+	}
+	
+	public static String getInveteLink(ProjectBean project,UserBean user){
+		String html="";
+		UserBean manager=Man_Emp_ProDAO.getManeger(project);
+		if(user.getUsername().equals(manager.getUsername())){
+			html+="<form action=\"ProjectServlet\" method=\"post\">"
+					+ "<label>Add New Employee:</label>"
+						+ "<input type=\"text\" placeholder=\"username\" name=\"username\">"
+						+ "<input type=\"submit\" value=\"Add Employee\">"
+				+ "</form>";
 		}
 		return html;
 	}
