@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import models.ProjectBean;
 import models.UserBean;
 
-public class Emp_ProjectDAO {
+public class Work_Emp_ProDAO {
 	static Connection currentCon = null;
 	static ResultSet rs = null;
 	static PreparedStatement ps=null;
@@ -17,7 +17,7 @@ public class Emp_ProjectDAO {
 	public static ArrayList<UserBean> getWorkers(ProjectBean project) {
 		ArrayList<UserBean> workers=new ArrayList<>();
 		int pid=project.getPid();
-		String query= "select username from emp_project where pid=?";
+		String query= "select username from work_emp_pro where pid=?";
 		try{
 			connect=new ConnectionManager();
 			currentCon=connect.getConnection();

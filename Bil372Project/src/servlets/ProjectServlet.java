@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dataAccess.Emp_ProjectDAO;
+import dataAccess.Work_Emp_ProDAO;
 import dataAccess.ProjectDAO;
 import models.ProjectBean;
 import models.UserBean;
@@ -31,7 +31,7 @@ public class ProjectServlet extends HttpServlet {
 			pw.println("Date cannot be empty!");
 			return;
 		}
-		ArrayList<UserBean> workers=Emp_ProjectDAO.getWorkers(currentProject);
+		ArrayList<UserBean> workers=Work_Emp_ProDAO.getWorkers(currentProject);
 		boolean found=false;
 		for(UserBean worker: workers){
 			if(!worker.getUsername().equals(currentUser.getUsername())){
@@ -44,8 +44,6 @@ public class ProjectServlet extends HttpServlet {
 			return;
 		}
 		ProjectDAO.setNewMeeting(currentProject,date);
-		
-		
 	}
 
 }
