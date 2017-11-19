@@ -22,7 +22,7 @@ public class LoginServlet extends HttpServlet {
 			if (user.isValid()) {
 				HttpSession session = request.getSession(true);
 				session.setAttribute("currentSessionUser", user);
-				response.sendRedirect("profile.jsp");
+				response.sendRedirect("profile.jsp?username="+user.getUsername());
 			} else
 				response.sendRedirect("invalidLogin.jsp");
 		} catch (Throwable theException) {
