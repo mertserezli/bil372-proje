@@ -42,7 +42,7 @@ public class ProjectDAO {
 		return project;
 	}
 	
-	public static ProjectBean setNewMeeting(ProjectBean project){
+	public static ProjectBean setNewMeeting(ProjectBean project,String str){
 		return project;
 	}
 	
