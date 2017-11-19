@@ -28,5 +28,4 @@ public class CompanyBean {
 	public void setDescription(String description) {
 		Description = description;
 	}
-
 }

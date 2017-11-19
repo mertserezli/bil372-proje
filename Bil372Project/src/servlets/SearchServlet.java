@@ -32,7 +32,7 @@ public class SearchServlet extends HttpServlet {
 				throw new ServletException("Error when getting users from DB", e);
 			}
 			for (UserBean u : users) {
-				pw.println("<h1>" + u.getUsername() + "</hl><br/>");
+				pw.println("<a href=\"profile.jsp?username="+u.getUsername()+"\"style=\"display:block\">"+u.getUsername()+"</a>");
 			}
 		} else if (searchType.equals("projects")) {
 			List<ProjectBean> projects = null;
@@ -52,7 +52,7 @@ public class SearchServlet extends HttpServlet {
 				throw new ServletException("Error when getting projects from DB", e);
 			}
 			for (CompanyBean c : companies) {
-				pw.println("<h1>" + c.getName() + "</hl><br/>");
+				pw.println("<a href=\"company.jsp?name="+c.getName()+"\"style=\"display:block\">"+c.getName()+"</a>");
 			}
 		}
 	}

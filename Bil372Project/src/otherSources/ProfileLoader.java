@@ -25,7 +25,7 @@ public class ProfileLoader {
 	}
 
 
-	public static String getButtons(UserBean currentUser,UserBean currentProfile){
+	public static String GetButtons(UserBean currentUser,UserBean currentProfile){
 		String html="";
 		if(currentUser.getUsername().equals(currentProfile.getUsername())){
 			html+="<form action=\"UploadServlet\" method=\"post\" enctype=\"multipart/form-data\" >"
