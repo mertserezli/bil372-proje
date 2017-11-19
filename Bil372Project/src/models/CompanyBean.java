@@ -4,6 +4,7 @@ public class CompanyBean {
 	private String CompID;
 	private String Name;
 	private String Description;
+	private String[] AdministratorUserName;
 
 	public String getCompID() {
 		return CompID;
@@ -28,4 +29,13 @@ public class CompanyBean {
 	public void setDescription(String description) {
 		Description = description;
 	}
+
+	public String[] getAdministratorUserName() {
+		return AdministratorUserName;
+	}
+
+	public void setAdministratorUserName(String[] administratorUserName) {
+		AdministratorUserName = administratorUserName;
+	}
+
 }

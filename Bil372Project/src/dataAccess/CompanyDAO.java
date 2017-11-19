@@ -13,9 +13,9 @@ public class CompanyDAO {
 	static PreparedStatement ps = null;
 	static ConnectionManager connect=null;
 	
-	public static CompanyBean getCompany(String name){
-		String query="select * from company where name=" + name;
-		CompanyBean company = new CompanyBean();
+	public static CompanyBean getCompany(CompanyBean company){
+		String name = company.getName();
+		String query = "select * from company where name='" + name + "'";
 		try{
 			connect=new ConnectionManager();
 			currentCon=connect.getConnection();
@@ -26,6 +26,7 @@ public class CompanyDAO {
 				company.setCompID(rs.getString("CompID"));
 				company.setName(name);
 				company.setDescription(rs.getString("Description"));
+				company.setAdministratorUserName((String[])rs.getArray("AdministratorUserName").getArray());
 			}
 		}
 		catch(Exception e){
