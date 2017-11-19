@@ -32,7 +32,7 @@ public class ProjectLoader {
 		String html="";
 		ArrayList<UserBean> workers = Work_Emp_ProDAO.getWorkers(project);
 		for(UserBean worker:workers){
-			html+=worker.getUsername()+", ";
+			html+=worker.getUsername()+"<br>";
 		}
 		return html;
 	}
