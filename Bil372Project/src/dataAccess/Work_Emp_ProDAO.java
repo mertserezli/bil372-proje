@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import models.ProjectBean;
 import models.UserBean;
 
-public class Emp_ProjectDAO {
+public class Work_Emp_ProDAO {
 	static Connection currentCon = null;
 	static ResultSet rs = null;
 	static PreparedStatement ps=null;
