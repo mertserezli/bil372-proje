@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dataAccess.ProfileDAO;
 import dataAccess.Work_Emp_ProDAO;
 import dataAccess.ProjectDAO;
 import models.ProjectBean;
@@ -44,6 +45,23 @@ public class ProjectServlet extends HttpServlet {
 			return;
 		}
 		ProjectDAO.setNewMeeting(currentProject,date);
+	}
+	public void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, java.io.IOException {
+		String username=request.getParameter("username");
+		PrintWriter pw = response.getWriter();
+		ProjectBean currentProject=(ProjectBean) request.getSession().getAttribute("currentProject");
+		UserBean user=new UserBean();
+		user.setUserName(username);
+		ProfileDAO.loadUser(user);
+		boolean succes=Work_Emp_ProDAO.addEmployee(user,currentProject);
+		if(succes){
+			pw.println("New Employee has been added");
+		}
+		else{
+			pw.println("New Employee could not been added");
+		}
+		
 	}
 
 }
