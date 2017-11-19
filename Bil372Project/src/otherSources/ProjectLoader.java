@@ -39,7 +39,7 @@ public class ProjectLoader {
 		return html;
 	}
 	
-	public static String getInveteLink(ProjectBean project,UserBean user){
+	public static String getInviteLink(ProjectBean project,UserBean user){
 		String html="";
 		UserBean manager=Man_Emp_ProDAO.getManeger(project);
 		if(user.getUsername().equals(manager.getUsername())){
