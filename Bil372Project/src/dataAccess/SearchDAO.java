@@ -85,7 +85,7 @@ public static List<ProjectBean> searchForProject(String projectRequest) throws S
                 ProjectBean project = new ProjectBean();
                 project.setTitle(rs.getString("Title"));
                 project.setDescription(rs.getString("Description"));
-                project.setPid(rs.getString("Pid"));
+                project.setPid(rs.getInt("Pid"));
                 project.setState(rs.getString("State"));
                 project.setVotenum(rs.getInt("Votenum"));
                 project.setCreationDate(rs.getDate("CreationDate"));
