@@ -33,7 +33,7 @@ public class ProjectLoader {
 
 		ArrayList<UserBean> workers = Work_Emp_ProDAO.getWorkers(project);
 		for(UserBean worker:workers){
-			html+=worker.getUsername()+"<br>";
+			html+="<a href=\"profile.jsp?username="+worker.getUsername()+"\">"+worker.getUsername()+"</a>"+"<br>";
 		}
 		return html;
 	}
