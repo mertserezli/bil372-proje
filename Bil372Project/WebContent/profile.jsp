@@ -1,3 +1,4 @@
+<%@page import="dataAccess.ProfileDAO"%>
 <%@page import="otherSources.ProfileLoader"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
@@ -13,7 +14,8 @@
 <% UserBean currentUser = (UserBean)session.getAttribute("currentSessionUser");
    UserBean currentProfile=new UserBean();
    currentProfile.setUserName(request.getParameter("username"));
-   request.setAttribute("currentProfile",currentProfile);%>
+   request.setAttribute("currentProfile",currentProfile);
+   ProfileDAO.loadUser(currentProfile);%>
 </head>
 <body>
  <ul>
@@ -25,16 +27,16 @@
 
   
 <div class="card" style="text-align: center; border: thick;">
-  <%=ProfileLoader.GetProfilePhoto(currentUser) %>
+  <%=ProfileLoader.GetProfilePhoto(currentProfile) %>
    <%=ProfileLoader.getButtons(currentUser, currentProfile) %>
 
-  <h1><%=currentUser.getLastName()+","+currentUser.getFirstName() %></h1>
-  <h2><%=currentUser.getJobTitle() %></h2>
+  <h1><%=currentProfile.getLastName()+","+currentProfile.getFirstName() %></h1>
+  <h2><%=currentProfile.getJobTitle() %></h2>
   <a href="Contact.jsp"></a>
 </div>
 <div>
   <h1>MY PROJECTS</h1>
-  <%=ProfileLoader.GetProjects(currentUser)%>
+  <%=ProfileLoader.GetProjects(currentProfile)%>
   </div>
   <div style="text-align: center;">
   <a href="NewProject.jsp">Create New Project</a>
