@@ -22,6 +22,7 @@ public class SearchServlet extends HttpServlet {
 
 		String searchType = request.getParameter("searchType");
 		String toSearch = request.getParameter("searchBar");
+		response.setContentType("text/html");
 		PrintWriter pw = response.getWriter();
 		if (searchType.equals("users")) {
 			List<UserBean> users = null;
@@ -41,7 +42,7 @@ public class SearchServlet extends HttpServlet {
 				throw new ServletException("Error when getting projects from DB", e);
 			}
 			for (ProjectBean p : projects) {
-				pw.println("<h1>" + p.getTitle() + "</hl><br/>");
+				pw.println("<a href=\"project.jsp?pid="+p.getPid()+"\"style=\"display:block\">"+p.getTitle()+"</a>");
 			}
 		} else if (searchType.equals("companies")) {
 			List<CompanyBean> companies = null;

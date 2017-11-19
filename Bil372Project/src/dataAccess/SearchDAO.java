@@ -88,7 +88,7 @@ public static List<ProjectBean> searchForProject(String projectRequest) throws S
                 project.setPid(rs.getInt("Pid"));
                 project.setState(rs.getString("State"));
                 project.setVotenum(rs.getInt("Votenum"));
-                project.setCreationDate(rs.getDate("CreationDate"));
+                project.setCreation_Date(rs.getDate("Creation_Date"));
                 result.add(project);
             }
         } finally {

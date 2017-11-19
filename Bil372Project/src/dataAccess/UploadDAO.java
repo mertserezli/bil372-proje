@@ -58,7 +58,7 @@ public class UploadDAO {
 					project.setState(rs.getString("state"));
 					project.setTitle(rs.getString("title"));
 					project.setDescription(rs.getString("description"));
-					project.setCreationDate(rs.getDate("creation_date"));
+					project.setCreation_Date(rs.getDate("creation_date"));
 					project.setVotenum(rs.getInt("votenum"));
 					projects.add(project);
 				}

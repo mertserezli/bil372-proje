@@ -6,7 +6,7 @@ public class ProjectBean {
 	private int Pid;
 	private String Title;
 	private String Description;
-	private Date CreationDate;
+	private Date Creation_Date;
 	private int Votenum;
 	private String State;
 	private String[] Tags;
@@ -36,14 +36,14 @@ public class ProjectBean {
 		Description = description;
 	}
 	
-	public Date getCreationDate() {
-		return CreationDate;
+	public Date getCreation_Date() {
+		return Creation_Date;
 	}
-	
-	public void setCreationDate(Date creationDate) {
-		CreationDate = creationDate;
+
+	public void setCreation_Date(Date creation_Date) {
+		Creation_Date = creation_Date;
 	}
-	
+
 	public int getVotenum() {
 		return Votenum;
 	}

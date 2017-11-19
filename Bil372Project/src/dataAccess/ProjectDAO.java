@@ -24,7 +24,7 @@ public class ProjectDAO {
 			rs = ps.executeQuery();
 			boolean more = rs.next();
 			if(more){
-				project.setCreationDate(rs.getDate("creation_date"));
+				project.setCreation_Date(rs.getDate("creation_date"));
 				project.setDescription(rs.getString("description"));
 				//project.setState(rs.get);
 				project.setTitle(rs.getString("title"));
