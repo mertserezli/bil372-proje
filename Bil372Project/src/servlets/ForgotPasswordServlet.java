@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 import otherSources.SendMail;
 import models.UserBean;
 import dataAccess.ForgotPasswordDAO;
-import dataAccess.loginDAO;
+import dataAccess.LoginDAO;
 
 public class ForgotPasswordServlet extends HttpServlet {
 

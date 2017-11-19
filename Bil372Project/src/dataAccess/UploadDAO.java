@@ -36,12 +36,12 @@ public class UploadDAO {
 		ArrayList<ProjectBean> projects=new ArrayList<>();
 		ArrayList<Integer> projectIDs=new ArrayList<>();
 		String username=user.getUsername();
-		String SearchEmp_Project="select pid from emp_project where username=?"; 
+		String SearchWork_Emp_Pro="select pid from work_emp_pro where username=?"; 
 		String SearchProject="select * from project where pid=?";
 		try{
 			ConnectionManager connect= new ConnectionManager();
 			currentCon=connect.getConnection();
-			ps=currentCon.prepareStatement(SearchEmp_Project);
+			ps=currentCon.prepareStatement(SearchWork_Emp_Pro);
 			ps.setString(1, username);
 			rs=ps.executeQuery();
 			while(rs.next()){
@@ -58,7 +58,7 @@ public class UploadDAO {
 					project.setState(rs.getString("state"));
 					project.setTitle(rs.getString("title"));
 					project.setDescription(rs.getString("description"));
-					project.setCreationDate(rs.getDate("creation_date"));
+					project.setCreation_Date(rs.getDate("creation_date"));
 					project.setVotenum(rs.getInt("votenum"));
 					projects.add(project);
 				}

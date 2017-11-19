@@ -44,6 +44,26 @@
     <servlet-name>UploadServlet</servlet-name>
     <servlet-class>servlets.UploadServlet</servlet-class>
   </servlet>
+   <servlet>
+    <description>creates new project</description>
+    <display-name>NewProjectServlet</display-name>
+    <servlet-name>NewProjectServlet</servlet-name>
+    <servlet-class>servlets.NewProjectServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>creates new project</description>
+    <display-name>ProjectServlet</display-name>
+    <servlet-name>ProjectServlet</servlet-name>
+    <servlet-class>servlets.ProjectServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProjectServlet</servlet-name>
+    <url-pattern>/ProjectServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>NewProjectServlet</servlet-name>
+    <url-pattern>/NewProjectServlet</url-pattern>
+  </servlet-mapping>
   <servlet-mapping>
     <servlet-name>UploadServlet</servlet-name>
     <url-pattern>/UploadServlet</url-pattern>

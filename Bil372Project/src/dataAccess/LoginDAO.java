@@ -7,7 +7,7 @@ import java.sql.Statement;
 
 import models.UserBean;
 
-public class loginDAO {
+public class LoginDAO {
 	static Connection currentCon = null;
 	static ResultSet rs = null;
 	static PreparedStatement ps = null;
