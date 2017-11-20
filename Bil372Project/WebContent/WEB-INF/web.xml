@@ -75,7 +75,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>TaskTreeServlet</servlet-name>
-    <url-pattern>/TaskTreeServlet</url-pattern>
+    <url-pattern>/TaskTree</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>MessageServlet</servlet-name>

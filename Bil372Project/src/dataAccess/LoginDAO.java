@@ -11,13 +11,13 @@ public class LoginDAO {
 	static Connection currentCon = null;
 	static ResultSet rs = null;
 	static PreparedStatement ps = null;
-	
+	static ConnectionManager connect = new ConnectionManager();
 	public static UserBean login(UserBean bean) {
 		String username = bean.getUsername();
 		String password = bean.getPassword();
 		String searchQuery = "select * from EMPLOYEE where Username=? AND Password=?";
 		try {
-			ConnectionManager connect = new ConnectionManager();
+			
 			currentCon = connect.getConnection();
 			ps = currentCon.prepareStatement(searchQuery);
 			ps.setString(1, username);
@@ -67,6 +67,8 @@ public class LoginDAO {
 				currentCon = null;
 			}
 		}
+		connect=null;
+		currentCon=null;
 		return bean;
 	}
 }

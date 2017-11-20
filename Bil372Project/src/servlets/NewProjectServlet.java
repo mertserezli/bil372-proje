@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import dataAccess.ProjectDAO;
 import models.ProjectBean;
+import models.UserBean;
 
 public class NewProjectServlet extends HttpServlet  {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -20,7 +21,7 @@ public class NewProjectServlet extends HttpServlet  {
 			project.setDescription(request.getParameter("description"));
 			String[] tags=request.getParameter("tags").split(",");
 			project.setTags(tags);
-			boolean success=ProjectDAO.createProject(project);
+			boolean success=ProjectDAO.createProject(project,(UserBean) request.getSession().getAttribute("currentSessionUser"));
 			if(success){
 				pw.println("New Project Successfully Created");
 				return;

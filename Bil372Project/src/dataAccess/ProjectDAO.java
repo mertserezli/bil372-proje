@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 
+import javax.print.DocFlavor.STRING;
+
 import models.CommentBean;
 import models.ProjectBean;
 import models.UserBean;
@@ -53,6 +55,8 @@ public class ProjectDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		connect=null;
+		currentCon=null;
 		return project;
 	}
 
@@ -90,11 +94,14 @@ public class ProjectDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		connect=null;
+		currentCon=null;
 		return project;
 	}
 
-	public static boolean createProject(ProjectBean project) {
+	public static boolean createProject(ProjectBean project,UserBean user) {
 		String insertQuery = "insert into project (title,description,tags,creation_date) values (?,?,?,?)";
+		String SearchQuery="SELECT pid FROM project ORDER BY pid DESC LIMIT 1";
 		try {
 			connect = new ConnectionManager();
 			currentCon = connect.getConnection();
@@ -105,10 +112,20 @@ public class ProjectDAO {
 			ps.setArray(3, tags);
 			ps.setDate(4, new java.sql.Date(Calendar.getInstance().getTime().getTime()));
 			ps.executeUpdate();
+			
+			ps=currentCon.prepareStatement(SearchQuery);
+			rs=ps.executeQuery();
+			if(rs.next()){
+				project.setPid(rs.getInt("pid"));
+				Man_Emp_ProDAO.setManager(project, user);
+				Work_Emp_ProDAO.addEmployee(user, project);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
 		}
+		connect=null;
+		currentCon=null;
 		return true;
 	}
 
@@ -158,6 +175,8 @@ public class ProjectDAO {
 				currentCon = null;
 			}
 		}
+		connect=null;
+		currentCon=null;
 		return result;
 	}
 	public static ArrayList<CommentBean> getComments(ProjectBean project){
@@ -183,8 +202,62 @@ public class ProjectDAO {
 			e.printStackTrace();
 			return new ArrayList<>();
 		}
+		connect=null;
+		currentCon=null;
 		return comments;
 		
+	}
+	public static boolean upvote(ProjectBean project){
+		String SearchQuery="select votenum from project where pid=?";
+		String updateQuery="update project set votenum=? where pid=?";
+		int votenum=0;
+		try {
+			connect = new ConnectionManager();
+			currentCon = connect.getConnection();
+			ps = currentCon.prepareStatement(SearchQuery);
+			ps.setInt(1, project.getPid());
+			rs = ps.executeQuery();
+			if(rs.next()){
+				votenum=rs.getInt("votenum")+1;
+			}
+			ps=currentCon.prepareStatement(updateQuery);
+			ps.setInt(1, votenum);
+			ps.setInt(2, project.getPid());
+			ps.executeUpdate();
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+		connect=null;
+		currentCon=null;
+		return true;
+	}
+	public static boolean downvote(ProjectBean project){
+		String SearchQuery="select votenum from project where pid=?";
+		String updateQuery="update project set votenum=? where pid=?";
+		int votenum=0;
+		try {
+			connect = new ConnectionManager();
+			currentCon = connect.getConnection();
+			ps = currentCon.prepareStatement(SearchQuery);
+			ps.setInt(1, project.getPid());
+			rs = ps.executeQuery();
+			if(rs.next()){
+				votenum=rs.getInt("votenum")-1;
+			}
+			ps=currentCon.prepareStatement(updateQuery);
+			ps.setInt(1, votenum);
+			ps.setInt(2, project.getPid());
+			ps.executeUpdate();
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+		connect=null;
+		currentCon=null;
+		return true;
 	}
 
 }

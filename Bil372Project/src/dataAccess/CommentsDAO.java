@@ -27,6 +27,8 @@ public class CommentsDAO {
 			e.printStackTrace();
 			return false;
 		}
+		connect=null;
+		currentCon=null;
 		return true;
 	}
 }

@@ -84,6 +84,26 @@ public class ProjectServlet extends HttpServlet {
 				pw.println("New Comment could not be added");
 			}
 		}
+		else if (click.equals("upvote")) {
+			ProjectBean currentProject=(ProjectBean) request.getSession().getAttribute("currentProject");
+			boolean success=ProjectDAO.upvote(currentProject);
+			if(success){
+				pw.println("Upvoted Project");
+			}
+			else{
+				pw.println("Could not upvote Project");
+			}
+		}
+		else if(click.equals("downvote")){
+			ProjectBean currentProject=(ProjectBean) request.getSession().getAttribute("currentProject");
+			boolean success=ProjectDAO.downvote(currentProject);
+			if(success){
+				pw.println("Downvoted Project");
+			}
+			else{
+				pw.println("Could not Downvote Project");
+			}
+		}
 		
 		
 	}

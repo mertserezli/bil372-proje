@@ -32,9 +32,15 @@
 	</div>
 <h1><%=project.getTitle()%></h1>
 <h2><%=project.getDescription()%></h2>
+<h2>Vote number:<%=project.getVotenum() %></h2>
+<form action="ProjectServlet" method="post">
+<input type="submit" name="click" value="upvote">
+<input type="submit" name="click" value="downvote">
+</form>
 <h3>This project contains:<br><%=Arrays.toString(project.getTags())%></h3>
 <h3>Upcoming meeting dates:<br><%=ProjectLoader.getUpcomingMeetings(project) %></h3>
 <h3>People who work on this project:<br><%=ProjectLoader.getWorkers(project) %></h3>
+<h3>Task tree:<br><a href="TaskTree?pid=<%=project.getPid() %>">Click to see</a></h3>
 <form action="ProjectServlet" method="get">
 	<label>Add new meeting date:</label>
 	<input type="text" placeholder="ex:dd.MM.YYYY" name="date">

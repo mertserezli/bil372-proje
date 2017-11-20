@@ -39,7 +39,7 @@
 			<h3>Employees working on this project</h3>
 			 <ul class="list-group">
 			 	<% for(UserBean employee :employeeList) { %>
-	            	<li class="list-group-item"> <a href="profile.jsp?username="<%=employee.getUsername() %> > <%= employee.getFirstName() %></a> </li>
+	            	<li class="list-group-item"> <a href="profile.jsp?username=<%=employee.getUsername() %>" > <%= employee.getFirstName() %></a> </li>
 	    		<% } %>
 			</ul>
 		</div>
