@@ -69,6 +69,59 @@ public class SearchDAO {
         return result;
     }
 	
+public static List<UserBean> searchForUserJobTitle(String jobtitleRequest) throws SQLException {
+        
+		List<UserBean> result = new ArrayList<UserBean>();
+        PreparedStatement ps = null;
+
+        String searchQuery = "Select DISTINCT * From EMPLOYEE Where UPPER(Jobtitle) LIKE UPPER('%" + jobtitleRequest + "%')";
+        
+        try {
+            ConnectionManager connect = new ConnectionManager();
+            currentCon = connect.getConnection();
+			ps = currentCon.prepareStatement(searchQuery);
+			rs = ps.executeQuery();
+			
+            while (rs.next()) {
+                UserBean user = new UserBean();
+                user.setUserName(rs.getString("Username"));
+                user.setPassword(rs.getString("Password"));
+                user.setJobTitle(rs.getString("JobTitle"));
+                user.setImage(rs.getString("Image"));
+                user.setFirstName(rs.getString("FirstName"));
+                user.setMiddleName(rs.getString("MiddleName"));
+                user.setLastName(rs.getString("LastName"));
+                user.setEmail(rs.getString("Email"));
+                user.setValid(true);
+                result.add(user);
+            }
+        } finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (Exception e) {
+				}
+				rs = null;
+			}
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (Exception e) {
+				}
+				ps = null;
+			}
+			if (currentCon != null) {
+				try {
+					currentCon.close();
+				} catch (Exception e) {
+				}
+				currentCon = null;
+			}
+		}
+
+        return result;
+    }
+	
 public static List<ProjectBean> searchForProject(String projectRequest) throws SQLException {
         
 		List<ProjectBean> result = new ArrayList<ProjectBean>();
