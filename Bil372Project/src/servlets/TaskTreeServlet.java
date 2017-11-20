@@ -61,15 +61,16 @@ public class TaskTreeServlet extends HttpServlet {
 		ArrayList<TaskBean> childTasks = TaskDAO.getChildTasks(parentTask);
 
 		html += "<li>";
-		html += "<a href=\"task/" + parentTask.getTid() + "\" class=\"task\">" + parentTask.getTitle() + "</a>";
+		html += "<a data-tid=\"" + parentTask.getTid() + "\" href=\"#\" class=\"task\">" + parentTask.getTitle()
+				+ "</a>";
 
 		if (!employees.isEmpty() || !childTasks.isEmpty())
 			html += "<ul>";
 
 		if (!employees.isEmpty()) {
 			for (UserBean employee : employees) {
-				html += "<li>" + "<a href=\"" + employee.getUsername() + "\" class=\"employee\">"
-						+ employee.getFirstName() + "</a> </li>";
+				html += "<li>" + "<a data-username=\"" + employee.getUsername() + "\" href=\"#\" class=\"employee\">"
+						+ employee.getFirstName() + " " + employee.getLastName() + "</a> </li>";
 			}
 		}
 
