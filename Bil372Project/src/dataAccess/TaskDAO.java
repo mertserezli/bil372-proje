@@ -15,6 +15,7 @@ public class TaskDAO {
 
 	public static List<TaskBean> searchTasksForUser(String username) throws SQLException {
 		List<TaskBean> tasks = new ArrayList<TaskBean>();
+		//String searchQuery = "Select * From Task";
 		String searchQuery = "Select * From TASK Where Username=? ORDER BY deadline";// TODO: rewrite sql
 		try {
 			ConnectionManager connect = new ConnectionManager();

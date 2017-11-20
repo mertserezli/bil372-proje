@@ -68,7 +68,7 @@ public class TaskBean {
 		this.performanceUpperbound = performanceUpperbound;
 	}
 
-	public int getPerfromanceValue() {
+	public int getPerformanceValue() {
 		return perfromanceValue;
 	}
 

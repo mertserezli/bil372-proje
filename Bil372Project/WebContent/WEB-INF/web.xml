@@ -56,6 +56,16 @@
     <servlet-name>ProjectServlet</servlet-name>
     <servlet-class>servlets.ProjectServlet</servlet-class>
   </servlet>
+  <servlet>
+    <description>sending new messages</description>
+    <display-name>MessageServlet</display-name>
+    <servlet-name>MessageServlet</servlet-name>
+    <servlet-class>servlets.MessageServlet</servlet-class>
+  </servlet>
+    <servlet-mapping>
+    <servlet-name>MessageServlet</servlet-name>
+    <url-pattern>/MessageServlet</url-pattern>
+  </servlet-mapping>
   <servlet-mapping>
     <servlet-name>ProjectServlet</servlet-name>
     <url-pattern>/ProjectServlet</url-pattern>

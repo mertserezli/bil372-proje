@@ -21,8 +21,7 @@ public class MessageDAO {
 	public static List<MessageBean> getUserMessages(String usernameRequest) throws SQLException {
 
 		List<MessageBean> result = new ArrayList<MessageBean>();
-
-		String searchQuery = "Select * From Messages INNER JOIN Mes_Receivers ON Messages.mID=Mes_Receivers.mID Where Username=? ORDER BY date_sent";
+		String searchQuery = "Select * From Messages INNER JOIN Mes_Receivers ON Messages.mid=Mes_Receivers.mid Where receivers @> ARRAY['" + usernameRequest + "']::text[]";
 
 		try {
 			ConnectionManager connect = new ConnectionManager();
@@ -66,36 +65,86 @@ public class MessageDAO {
 
 		return result;
 	}
+	public static List<MessageBean> getUserOutbox(String usernameRequest) throws SQLException {
+	    
+		List<MessageBean> result = new ArrayList<MessageBean>();
+		String searchQuery = "Select * From Messages INNER JOIN Mes_Receivers ON Messages.mid=Mes_Receivers.mid Where sent_by='"+usernameRequest+"'";
+	    try {
+	        ConnectionManager connect = new ConnectionManager();
+	        currentCon = connect.getConnection();
+			ps = currentCon.prepareStatement(searchQuery);
+			rs = ps.executeQuery();
+			
+	        while (rs.next()) {
+	        	MessageBean m = new MessageBean();
+	        	m.setmID(rs.getString("mid"));
+	        	m.setReceiver((String[])rs.getArray("receivers").getArray());
+	        	m.setDate(rs.getDate("date_sent"));
+	        	m.setSender(rs.getString("sent_by"));
+	        	m.setTitle(rs.getString("title"));
+	        	m.setContent(rs.getString("content"));
+	        	result.add(m);
+	        }
+	    } finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (Exception e) {
+				}
+				rs = null;
+			}
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (Exception e) {
+				}
+				ps = null;
+			}
+			if (currentCon != null) {
+				try {
+					currentCon.close();
+				} catch (Exception e) {
+				}
+				currentCon = null;
+			}
+		}
 
-	public static boolean sendMessage(MessageBean mes) {
-		String insertQuery = "insert into messages(mid,title,date_sent,content,sent_by) values(?,?,?,?,?)";
-		String insertQuery2 = "insert into mes_receivers(mid,receivers) values(?,?)";
+	    return result;
+	}
+	public static boolean sendMessage(MessageBean mes)
+	{
+		String insertQuery= "insert into messages(sent_by,title,content,date_sent) values(?,?,?,?)";
+		String insertQuery2= "insert into mes_receivers(receivers) values(?)";
 		try {
 			ConnectionManager connect = new ConnectionManager();
 			currentCon = connect.getConnection();
-			ps = currentCon.prepareStatement(insertQuery);
-			ps.setString(1, mes.getmID());
-			ps.setString(2, mes.getTitle());
-			ps.setDate(3, mes.getDate());
-			ps.setString(4, mes.getContent());
-			ps.setString(5, mes.getSender());
+			ps=currentCon.prepareStatement(insertQuery);
+			//ps.setString(1,mes.getmID());
+			ps.setString(1,mes.getSender());
+			ps.setString(2,mes.getTitle());
+			ps.setString(3, mes.getContent());
+			ps.setDate(4,mes.getDate());
 			ps.executeUpdate();
-		} catch (Exception e) {
+		}
+		catch(Exception e){
 			e.printStackTrace();
 			return false;
 		}
-		try {
+		try{
 			ConnectionManager connect = new ConnectionManager();
 			currentCon = connect.getConnection();
-			ps = currentCon.prepareStatement(insertQuery2);
-			ps.setString(1, mes.getmID());
-			// ps.setArray(2,mes.getReceiver());
+			ps=currentCon.prepareStatement(insertQuery2);
+			//ps.setString(1,mes.getmID());
+			String[] arr =mes.getReceiver();
+			Array sqlArray = currentCon.createArrayOf("TEXT",arr);
+			ps.setArray(1,sqlArray);
+			//ps.setArray(2,(Array)mes.getReceiver());
 			ps.executeUpdate();
-		} catch (Exception e) {
+		}
+		catch(Exception e){
 			e.printStackTrace();
 			return false;
 		}
 		return true;
-
 	}
 }
