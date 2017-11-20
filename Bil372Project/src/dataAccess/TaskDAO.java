@@ -15,7 +15,7 @@ public class TaskDAO {
 
 	public static List<TaskBean> searchTasksForUser(String username) throws SQLException {
 		List<TaskBean> tasks = new ArrayList<TaskBean>();
-		//String searchQuery = "Select * From Task";
+		// String searchQuery = "Select * From Task";
 		String searchQuery = "Select * From TASK Where Username=? ORDER BY deadline";// TODO: rewrite sql
 		try {
 			ConnectionManager connect = new ConnectionManager();
@@ -54,23 +54,13 @@ public class TaskDAO {
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				TaskBean task = new TaskBean();
-				int tid = rs.getInt("taskid");
+				int tid = rs.getInt("tid");
 				String title = rs.getString("title");
-				int Pid = rs.getInt("PID");
 				String Description = rs.getString("description");
-				String PerformanceCriteria = rs.getString("performanceCriteria");
-				Date Deadline = rs.getDate("deadline");
-				int performanceUpperbound = rs.getInt("performanceUpperbound");
-				int perfromanceValue = rs.getInt("performanceValue");
 
 				task.setTid(tid);
 				task.setTitle(title);
-				task.setPid(Pid);
-				task.setDeadline(Deadline);
 				task.setDescription(Description);
-				task.setPerformanceCriteria(PerformanceCriteria);
-				task.setPerformanceUpperbound(performanceUpperbound);
-				task.setPerfromanceValue(perfromanceValue);
 
 				result.add(task);
 			}
@@ -104,7 +94,7 @@ public class TaskDAO {
 
 	public static ArrayList<TaskBean> getChildTasks(TaskBean parentTask) {
 		PreparedStatement ps = null;
-		String searchQuery = "select * from TASK where tid in (select tid from PREREQU_TASK where pretid=1)";
+		String searchQuery = "select * from TASK where tid in (select tid from PREREQU_TASK where pretid=?)";
 		ArrayList<TaskBean> result = new ArrayList<TaskBean>();
 		try {
 			ConnectionManager connect = new ConnectionManager();
@@ -114,23 +104,13 @@ public class TaskDAO {
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				TaskBean task = new TaskBean();
-				int tid = rs.getInt("taskid");
+				int tid = rs.getInt("tid");
 				String title = rs.getString("title");
-				int Pid = rs.getInt("PID");
 				String Description = rs.getString("description");
-				String PerformanceCriteria = rs.getString("performanceCriteria");
-				Date Deadline = rs.getDate("deadline");
-				int performanceUpperbound = rs.getInt("performanceUpperbound");
-				int perfromanceValue = rs.getInt("performanceValue");
 
 				task.setTid(tid);
 				task.setTitle(title);
-				task.setPid(Pid);
-				task.setDeadline(Deadline);
 				task.setDescription(Description);
-				task.setPerformanceCriteria(PerformanceCriteria);
-				task.setPerformanceUpperbound(performanceUpperbound);
-				task.setPerfromanceValue(perfromanceValue);
 
 				result.add(task);
 			}
@@ -175,20 +155,14 @@ public class TaskDAO {
 			while (rs.next()) {
 				UserBean employee = new UserBean();
 
-				String jobTitle = rs.getString("JobTitle");
-				String image = rs.getString("Image");
-				String firstName = rs.getString("FirstName");
-				String middleName = rs.getString("MiddleName");
-				String lastName = rs.getString("LastName");
-				String email = rs.getString("Email");
-				employee.setJobTitle(jobTitle);
-				employee.setImage(image);
-				employee.setFirstName(firstName);
-				employee.setMiddleName(middleName);
-				employee.setLastName(lastName);
-				employee.setEmail(email);
+				employee.setUserName(rs.getString("username"));
+				employee.setEmail(rs.getString("email"));
+				employee.setFirstName(rs.getString("firstname"));
+				employee.setJobTitle(rs.getString("jobtitle"));
+				employee.setLastName(rs.getString("lastname"));
+				employee.setMiddleName(rs.getString("middlename"));
 
-				employee.setValid(true);
+				result.add(employee);
 			}
 		} catch (Exception ex) {
 			System.out.println("Failed: An Exception has occurred! " + ex);

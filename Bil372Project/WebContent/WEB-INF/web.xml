@@ -62,7 +62,22 @@
     <servlet-name>MessageServlet</servlet-name>
     <servlet-class>servlets.MessageServlet</servlet-class>
   </servlet>
-    <servlet-mapping>
+  <servlet>
+    <description>show task tree and edit tree</description>
+    <display-name>TaskTreeServlet</display-name>
+    <servlet-name>TaskTreeServlet</servlet-name>
+    <servlet-class>servlets.TaskTreeServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <display-name>taskTree</display-name>
+    <servlet-name>taskTree</servlet-name>
+    <jsp-file>/taskTree.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TaskTreeServlet</servlet-name>
+    <url-pattern>/TaskTreeServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
     <servlet-name>MessageServlet</servlet-name>
     <url-pattern>/MessageServlet</url-pattern>
   </servlet-mapping>
