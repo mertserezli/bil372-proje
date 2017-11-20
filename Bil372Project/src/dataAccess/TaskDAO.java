@@ -12,24 +12,26 @@ public class TaskDAO {
 	static Connection currentCon = null;
 	static ResultSet rs = null;
 	static PreparedStatement ps = null;
-
-	public static List<TaskBean> searchTasksForUser(String username) throws SQLException {
+	
+	public static List<TaskBean> searchTasksForUser(String usernameRequest) throws SQLException {
 		List<TaskBean> tasks = new ArrayList<TaskBean>();
-		// String searchQuery = "Select * From Task";
-		String searchQuery = "Select * From TASK Where Username=? ORDER BY deadline";// TODO: rewrite sql
+		 String searchQuery = "Select * From work_task_emp INNER JOIN task ON work_task_emp.tid=task.tid Where username='"+usernameRequest+"'";
+		//String searchQuery = "Select * From TASK Where Username=? ORDER BY deadline";// TODO: rewrite sql
 		try {
 			ConnectionManager connect = new ConnectionManager();
 			currentCon = connect.getConnection();
 			ps = currentCon.prepareStatement(searchQuery);
-			ps.setString(1, username);
+			//ps.setString(1, username);
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				TaskBean task = new TaskBean();
 				// task.setUsername(username);
-				task.setTid(rs.getInt("TID"));
-				task.setPid(rs.getInt("PID"));
+				task.setTid(rs.getInt("tid"));
+				task.setPid(rs.getInt("pid"));
 				task.setDescription(rs.getString("description"));
 				task.setPerformanceCriteria(rs.getString("performancecriteria"));
+				task.setPerformanceUpperbound(rs.getInt("performanceupperbound"));
+				task.setPerfromanceValue(rs.getInt("performancevalue"));
 				task.setDeadline(rs.getDate("deadline"));
 				// task.setPrerequisite(rs.getInt("PRETID"));
 				tasks.add(task);
@@ -41,7 +43,6 @@ public class TaskDAO {
 		return tasks;
 
 	}
-
 	public static ArrayList<TaskBean> getRootTasks(ProjectBean project) {
 		PreparedStatement ps = null;
 		String searchQuery = "select * from TASK as t where t.pid=? and NOT EXISTS(select * from prerequ_task as p where t.tid=p.tid)";

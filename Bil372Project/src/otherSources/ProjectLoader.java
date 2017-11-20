@@ -7,7 +7,9 @@ import java.util.Calendar;
 import org.apache.catalina.User;
 
 import dataAccess.Man_Emp_ProDAO;
+import dataAccess.ProjectDAO;
 import dataAccess.Work_Emp_ProDAO;
+import models.CommentBean;
 import models.ProjectBean;
 import models.UserBean;
 
@@ -46,9 +48,35 @@ public class ProjectLoader {
 			html+="<form action=\"ProjectServlet\" method=\"post\">"
 					+ "<label>Add New Employee:</label>"
 						+ "<input type=\"text\" placeholder=\"username\" name=\"username\">"
-						+ "<input type=\"submit\" value=\"Add Employee\">"
+						+ "<input type=\"submit\" value=\"Add Employee\" name=\"click\">"
 				+ "</form>";
 		}
+		return html;
+	}
+	public static String getComments(ProjectBean project){
+		ArrayList<CommentBean> comments=ProjectDAO.getComments(project);
+		String html="";
+		for(CommentBean comment:comments){
+			html+="<tr>"
+					+"<td>"+comment.getCid()+"</td>"
+					+"<td>"+comment.getUsername()+"</td>"
+					+"<td>"+comment.getContent()+"</td>"
+				 +"</tr>";
+		}
+		return html;
+	}
+	public static String getAddCommentButton(ProjectBean project,UserBean user){
+		String html="";
+		ArrayList<UserBean> workers = Work_Emp_ProDAO.getWorkers(project);
+		for(UserBean worker:workers)
+			if(user.getUsername().equals(worker.getUsername())){
+				html+="<div>"+"<form action=\"ProjectServlet\" method=\"post\">"
+						+ "<label>Add New Comment:</label>"
+							+ "<textarea rows=\"4\" cols=\"50\" style=\"margin-top:2cm\" name=\"content\">"+"</textarea>"
+							+ "<input type=\"submit\" value=\"Add Comment\" name=\"click\">"
+					+ "</form>"+"</div>";
+				break;
+			}
 		return html;
 	}
 }

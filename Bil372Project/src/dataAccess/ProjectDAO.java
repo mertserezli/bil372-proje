@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 
+import models.CommentBean;
 import models.ProjectBean;
 import models.UserBean;
 
@@ -121,7 +122,6 @@ public class ProjectDAO {
 			ps = currentCon.prepareStatement(query);
 			ps.setInt(1, pid);
 			rs = ps.executeQuery();
-			boolean more = rs.next();
 			while (rs.next()) {
 				UserBean employee = new UserBean();
 
@@ -131,7 +131,6 @@ public class ProjectDAO {
 				employee.setJobTitle(rs.getString("jobtitle"));
 				employee.setLastName(rs.getString("lastname"));
 				employee.setMiddleName(rs.getString("middlename"));
-
 				result.add(employee);
 			}
 		} catch (Exception ex) {
@@ -160,6 +159,32 @@ public class ProjectDAO {
 			}
 		}
 		return result;
+	}
+	public static ArrayList<CommentBean> getComments(ProjectBean project){
+		int pid=project.getPid();
+		ArrayList<CommentBean> comments=new ArrayList<>();
+		String query="select * from project_comments where pid=?";
+		try {
+			connect = new ConnectionManager();
+			currentCon = connect.getConnection();
+			ps = currentCon.prepareStatement(query);
+			ps.setInt(1, pid);
+			rs = ps.executeQuery();
+			while(rs.next()){
+				CommentBean comment=new CommentBean();
+				comment.setCid(rs.getInt("cid"));
+				comment.setContent(rs.getString("content"));
+				comment.setPid(rs.getInt("pid"));
+				comment.setUsername(rs.getString("username"));
+				comments.add(comment);
+			}
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return new ArrayList<>();
+		}
+		return comments;
+		
 	}
 
 }

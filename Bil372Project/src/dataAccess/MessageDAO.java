@@ -114,7 +114,22 @@ public class MessageDAO {
 	public static boolean sendMessage(MessageBean mes)
 	{
 		String insertQuery= "insert into messages(sent_by,title,content,date_sent) values(?,?,?,?)";
-		String insertQuery2= "insert into mes_receivers(receivers) values(?)";
+		String insertQuery2="insert into mes_receivers(receivers) values('{";
+		
+		for(int i=0;i<mes.getReceiver().length;i++)
+		{
+			if(i==mes.getReceiver().length-1)
+			{
+				insertQuery2+=mes.getReceiver()[i]+"}')";
+			}
+			else
+			{
+				insertQuery2+=mes.getReceiver()[i]+",";
+			}
+		}
+		System.out.println(insertQuery2);
+		//String insertQuery2= "insert into mes_receivers(receivers) values('{sozcan,mert}')";
+		//String insertQuery2= "insert into mes_receivers(receivers) values('?')";
 		try {
 			ConnectionManager connect = new ConnectionManager();
 			currentCon = connect.getConnection();
@@ -133,12 +148,7 @@ public class MessageDAO {
 		try{
 			ConnectionManager connect = new ConnectionManager();
 			currentCon = connect.getConnection();
-			ps=currentCon.prepareStatement(insertQuery2);
-			//ps.setString(1,mes.getmID());
-			String[] arr =mes.getReceiver();
-			Array sqlArray = currentCon.createArrayOf("TEXT",arr);
-			ps.setArray(1,sqlArray);
-			//ps.setArray(2,(Array)mes.getReceiver());
+			ps=currentCon.prepareStatement(insertQuery2);;
 			ps.executeUpdate();
 		}
 		catch(Exception e){
