@@ -21,9 +21,9 @@
 </head>
 <body>
 
-<% for(int i = 0; i < m.size(); i+=1) { %>
+<% for(int i = m.size()-1; i >=0; i-=1) { %>
 <h1>Sender:<%=m.get(i).getSender()%></h1>
-<h2>Date:<%=m.get(i).getSender()%></h2>
+<h2>Date:<%=m.get(i).getDate()%></h2>
 <h2>Receivers:<%=Arrays.toString(m.get(i).getReceiver())%></h2>
 <h2>Title:<%=m.get(i).getTitle()%></h3>
 <h3>Content:<%=m.get(i).getContent() %></h3>
