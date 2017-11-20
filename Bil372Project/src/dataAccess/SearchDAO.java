@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 
 import models.UserBean;
 import models.CompanyBean;
+import models.Emp_QualificationsBean;
 import models.ProjectBean;
 
 public class SearchDAO {
@@ -121,7 +122,86 @@ public static List<UserBean> searchForUserJobTitle(String jobtitleRequest) throw
 
         return result;
     }
-	
+
+public static List<UserBean> searchForUserWithQualifications(String qualificationsRequest) throws SQLException {
+    
+	List<String> employees = new ArrayList<String>();
+	List<UserBean> result = new ArrayList<UserBean>();
+    PreparedStatement ps = null;
+
+    String searchQueryOne = "Select DISTINCT Username From EMP_QUALIFICATIONS Where ";
+    String[] qRequests = qualificationsRequest.split(",");
+    for(String s: qRequests)
+    {
+    	searchQueryOne += "'" + s + "'=ANY(qualifications)";
+    	if (!s.equals(qRequests[qRequests.length-1])) 
+    		searchQueryOne += " AND ";
+    }
+    
+    try {
+        ConnectionManager connect = new ConnectionManager();
+        currentCon = connect.getConnection();
+		ps = currentCon.prepareStatement(searchQueryOne);
+		rs = ps.executeQuery();
+		
+        while (rs.next()) {
+        	String employee = rs.getString("Username");
+            employees.add(employee);
+        }
+        
+        String searchQueryTwo;
+        for (String e : employees) {
+            searchQueryTwo = "Select * From EMPLOYEE Where Username = '" + e + "'";
+
+        	ps = currentCon.prepareStatement(searchQueryTwo);
+            rs = ps.executeQuery();
+            
+            while (rs.next()) {
+            	UserBean user = new UserBean();
+                user.setUserName(rs.getString("Username"));
+                user.setPassword(rs.getString("Password"));
+                user.setJobTitle(rs.getString("JobTitle"));
+                user.setImage(rs.getString("Image"));
+                user.setFirstName(rs.getString("FirstName"));
+                user.setMiddleName(rs.getString("MiddleName"));
+                user.setLastName(rs.getString("LastName"));
+                user.setEmail(rs.getString("Email"));
+                user.setValid(true);
+                result.add(user);
+            }
+        }
+        
+        
+        while (rs.next()) {
+        	
+        }
+    } finally {
+		if (rs != null) {
+			try {
+				rs.close();
+			} catch (Exception e) {
+			}
+			rs = null;
+		}
+		if (ps != null) {
+			try {
+				ps.close();
+			} catch (Exception e) {
+			}
+			ps = null;
+		}
+		if (currentCon != null) {
+			try {
+				currentCon.close();
+			} catch (Exception e) {
+			}
+			currentCon = null;
+		}
+	}
+
+    return result;
+}
+
 public static List<ProjectBean> searchForProject(String projectRequest) throws SQLException {
         
 		List<ProjectBean> result = new ArrayList<ProjectBean>();

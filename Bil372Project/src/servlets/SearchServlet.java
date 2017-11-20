@@ -44,11 +44,18 @@ public class SearchServlet extends HttpServlet {
 					throw new ServletException("Error when getting users from DB", e);
 				}
 			}
-			
+			else if (category.equals("qualifications"))
+			{
+				try {
+					users = SearchDAO.searchForUserWithQualifications(toSearch);
+				} catch (SQLException e) {
+					throw new ServletException("Error when getting users from DB", e);
+				}
+			}
 			for (UserBean u : users)
 			{
 				pw.println("<a href=\"profile.jsp?username=" + u.getUsername() + "\"style=\"display:block\">"
-						+ u.getUsername() + ", " + u.getJobTitle() + "</a>");
+						+ u.getUsername() + "</a>");
 			}
 		}
 		else if (searchType.equals("projects"))

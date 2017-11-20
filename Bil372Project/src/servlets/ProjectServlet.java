@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dataAccess.CommentsDao;
+import dataAccess.CommentsDAO;
 import dataAccess.ProfileDAO;
 import dataAccess.Work_Emp_ProDAO;
 import dataAccess.ProjectDAO;
@@ -43,7 +43,7 @@ public class ProjectServlet extends HttpServlet {
 			}
 		}
 		if(!found){
-			pw.println("You cannot setup a meeting!");
+			pw.println("You cannot set up a meeting!");
 			return;
 		}
 		ProjectDAO.setNewMeeting(currentProject,date);
@@ -65,7 +65,7 @@ public class ProjectServlet extends HttpServlet {
 				pw.println("New Employee has been added");
 			}
 			else{
-				pw.println("New Employee could not been added");
+				pw.println("New Employee could not be added");
 			}
 		}
 		else if(click.equals("Add Comment")){
@@ -76,12 +76,12 @@ public class ProjectServlet extends HttpServlet {
 			comment.setContent(content);
 			comment.setPid(currentProject.getPid());
 			comment.setUsername(user.getUsername());
-			boolean success=CommentsDao.addComment(currentProject, user,comment);
+			boolean success=CommentsDAO.addComment(currentProject, user,comment);
 			if(success){
 				pw.println("New Comment has been added");
 			}
 			else{
-				pw.println("New Comment could not been added");
+				pw.println("New Comment could not be added");
 			}
 		}
 		

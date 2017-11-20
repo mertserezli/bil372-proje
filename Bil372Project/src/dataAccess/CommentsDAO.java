@@ -7,7 +7,7 @@ import models.CommentBean;
 import models.ProjectBean;
 import models.UserBean;
 
-public class CommentsDao {
+public class CommentsDAO {
 	static Connection currentCon = null;
 	static PreparedStatement ps = null;
 	static ConnectionManager connect = null;

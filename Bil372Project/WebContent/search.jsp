@@ -30,11 +30,35 @@
 		<input type="radio" name="userCategory" onclick=\ "getAnswer('jobtitle')" value="jobtitle" /> Job Title
 		</label>
 		<br>
+		<label>
+		<input type="radio" name="userCategory" onclick=\ "getAnswer('qualifications')" value="qualifications" /> Qualifications
+		</label>
+		<br>
 		<br>
 		<label>Project Search Options</label>
 		<br>
+		<label>
+		<input type="radio" name="projectCategory" onclick=\ "getAnswer('title')" value="title" checked="checked"/> Title
+		</label>
+		<br>
+		<label>
+		<input type="radio" name="projectCategory" onclick=\ "getAnswer('description')" value="description" /> Description
+		</label>
+		<br>
+		<label>
+		<input type="radio" name="projectCategory" onclick=\ "getAnswer('tags')" value="tags" /> Tags
+		</label>
+		<br>
 		<br>
 		<label>Company Search Options</label>
+		<br>
+		<label>
+		<input type="radio" name="companyCategory" onclick=\ "getAnswer('name')" value="name" checked="checked"/> Name
+		</label>
+		<br>
+		<label>
+		<input type="radio" name="userCategory" onclick=\ "getAnswer('description')" value="description" /> Description
+		</label>
 		<br>
 		<br>
 		<button type="submit" class="button button-block">Search</button>
