@@ -37,7 +37,7 @@ public class UploadServlet extends HttpServlet {
         UserBean current=(UserBean)request.getSession().getAttribute("currentSessionUser");
         current.setImage(fileName);
         UploadDAO.uploadImage(current);
-        response.sendRedirect("profile.jsp");
+        response.sendRedirect("profile.jsp?username="+current.getUsername());
 	}
 	
 	private String extractFileName(Part part) {

@@ -34,6 +34,8 @@ public class Work_Emp_ProDAO {
 		catch(Exception e){
 			e.printStackTrace();
 		}
+		connect=null;
+		currentCon=null;
 		return workers;
 	}
 	public static boolean addEmployee(UserBean user,ProjectBean project){
@@ -49,6 +51,8 @@ public class Work_Emp_ProDAO {
 		catch(Exception e){
 			e.printStackTrace();return false;
 		}
+		connect=null;
+		currentCon=null;
 		return true;
 	}
 }

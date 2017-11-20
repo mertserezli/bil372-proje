@@ -32,6 +32,8 @@ public class CompanyDAO {
 		catch(Exception e){
 			
 		}
+		connect=null;
+		currentCon=null;
 		return company;
 	}
 }

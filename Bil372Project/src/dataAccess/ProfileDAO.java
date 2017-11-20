@@ -33,6 +33,8 @@ public class ProfileDAO {
 		catch(Exception e){
 			e.printStackTrace();
 		}
+		connect=null;
+		currentCon=null;
 		return user;
 	}
 }

@@ -11,11 +11,12 @@ public class ForgotPasswordDAO {
 	static Connection currentCon = null;
 	static ResultSet rs = null;
 	static PreparedStatement ps=null;
+	static ConnectionManager connect = new ConnectionManager();
 	public static UserBean getPassword(UserBean bean) {
 		String username = bean.getUsername();
 		String searchQuery = "select * from EMPLOYEE where Username=?";
 		try {
-			ConnectionManager connect = new ConnectionManager();
+			
 			currentCon = connect.getConnection();
 			ps=currentCon.prepareStatement(searchQuery);
 			ps.setString(1,username);
@@ -57,6 +58,8 @@ public class ForgotPasswordDAO {
 				currentCon = null;
 			}
 		}
+		connect=null;
+		currentCon=null;
 		return bean;
 	}
 }

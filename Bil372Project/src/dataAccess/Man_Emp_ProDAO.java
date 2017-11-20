@@ -44,6 +44,8 @@ public class Man_Emp_ProDAO {
 		catch(Exception e){
 			e.printStackTrace();
 		}
+		connect=null;
+		currentCon=null;
 		return true;
 	}
 }
