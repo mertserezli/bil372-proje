@@ -31,6 +31,8 @@ public class TaskTreeServlet extends HttpServlet {
 			project = ProjectDAO.getProject(project);
 			if (!project.getTitle().equals("Project Not Found")) {
 				String tree = getTreeHTML(project);
+				ArrayList<UserBean> employeeList = ProjectDAO.getEmployees(project);
+				request.setAttribute("employeeList", employeeList);
 				request.setAttribute("tree", tree);
 				dispatcher = context.getNamedDispatcher("taskTree");
 				dispatcher.forward(request, response);

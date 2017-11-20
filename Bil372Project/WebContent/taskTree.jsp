@@ -2,6 +2,7 @@
 	contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     import="models.UserBean"
+    import="java.util.ArrayList"
     %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -9,6 +10,8 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		 <link rel="stylesheet" type="text/css" href="css/tree.css" />
 		 <link rel="stylesheet" type="text/css" href="css/navBar.css" />
+		 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		 <script src="jquery-3.2.1.js"></script>
 		<title>Task Tree</title>
 		<% 
 		UserBean currentUser = (UserBean)session.getAttribute("currentSessionUser");
@@ -29,6 +32,14 @@
 		<% String html = (String) request.getAttribute("tree"); %>
 		<%= html %>
 		
+		<% ArrayList<UserBean> employeeList = (ArrayList<UserBean>)request.getAttribute("employeeList"); %>
+		
+		 <ul class="list-group">
+		 	<% for(UserBean employee :employeeList) { %>
+            	<li class="list-group-item"> <a href="profile.jsp?username="<%=employee.getUsername() %> > <%= employee.getFirstName() %></a> </li>
+    		<% } %>
+		</ul>
+		
 		<form action="addEmployeeToTask" method="get"><!--TODO: burayi duzelt--> 
 			<label>task title</label>
 			<input type="text" name="title">
@@ -37,6 +48,9 @@
 			
 			<input type="submit" value="Create">  
 		</form>
+	<script type="text/javascript">
+		
+	</script>
 	</body>
 	<style type="text/css">
 

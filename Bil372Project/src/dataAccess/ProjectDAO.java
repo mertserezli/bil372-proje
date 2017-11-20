@@ -121,7 +121,6 @@ public class ProjectDAO {
 			ps = currentCon.prepareStatement(query);
 			ps.setInt(1, pid);
 			rs = ps.executeQuery();
-			boolean more = rs.next();
 			while (rs.next()) {
 				UserBean employee = new UserBean();
 
@@ -131,7 +130,6 @@ public class ProjectDAO {
 				employee.setJobTitle(rs.getString("jobtitle"));
 				employee.setLastName(rs.getString("lastname"));
 				employee.setMiddleName(rs.getString("middlename"));
-
 				result.add(employee);
 			}
 		} catch (Exception ex) {
