@@ -57,7 +57,7 @@
 		</label>
 		<br>
 		<label>
-		<input type="radio" name="userCategory" onclick=\ "getAnswer('description')" value="description" /> Description
+		<input type="radio" name="companyCategory" onclick=\ "getAnswer('description')" value="description" /> Description
 		</label>
 		<br>
 		<br>

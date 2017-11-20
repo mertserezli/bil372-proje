@@ -24,64 +24,75 @@ public class SearchServlet extends HttpServlet {
 		String toSearch = request.getParameter("searchBar");
 		response.setContentType("text/html");
 		PrintWriter pw = response.getWriter();
-		if (searchType.equals("users"))
-		{
+		if (searchType.equals("users")) {
 			List<UserBean> users = null;
 			String category = request.getParameter("userCategory");
-			if (category.equals("username"))
-			{
+			if (category.equals("username")) {
 				try {
 					users = SearchDAO.searchForUser(toSearch);
 				} catch (SQLException e) {
 					throw new ServletException("Error when getting users from DB", e);
 				}
-			}
-			else if (category.equals("jobtitle"))
-			{
+			} else if (category.equals("jobtitle")) {
 				try {
 					users = SearchDAO.searchForUserJobTitle(toSearch);
 				} catch (SQLException e) {
 					throw new ServletException("Error when getting users from DB", e);
 				}
-			}
-			else if (category.equals("qualifications"))
-			{
+			} else if (category.equals("qualifications")) {
 				try {
 					users = SearchDAO.searchForUserWithQualifications(toSearch);
 				} catch (SQLException e) {
 					throw new ServletException("Error when getting users from DB", e);
 				}
 			}
-			for (UserBean u : users)
-			{
+			for (UserBean u : users) {
 				pw.println("<a href=\"profile.jsp?username=" + u.getUsername() + "\"style=\"display:block\">"
 						+ u.getUsername() + "</a>");
 			}
-		}
-		else if (searchType.equals("projects"))
-		{
+		} else if (searchType.equals("projects")) {
 			List<ProjectBean> projects = null;
-			try {
-				projects = SearchDAO.searchForProject(toSearch);
-			} catch (SQLException e) {
-				throw new ServletException("Error when getting projects from DB", e);
+			String category = request.getParameter("projectCategory");
+			if (category.equals("title")) {
+				try {
+					projects = SearchDAO.searchForProject(toSearch);
+				} catch (SQLException e) {
+					throw new ServletException("Error when getting projects from DB", e);
+				}
+			} else if (category.equals("description")) {
+				try {
+					projects = SearchDAO.searchForProjectDescription(toSearch);
+				} catch (SQLException e) {
+					throw new ServletException("Error when getting projects from DB", e);
+				}
+			} else if (category.equals("tags")) {
+				try {
+					projects = SearchDAO.searchForProjectWithTags(toSearch);
+				} catch (SQLException e) {
+					throw new ServletException("Error when getting projects from DB", e);
+				}
 			}
-			for (ProjectBean p : projects)
-			{
+			for (ProjectBean p : projects) {
 				pw.println("<a href=\"project.jsp?pid=" + p.getPid() + "\"style=\"display:block\">" + p.getTitle()
 						+ "</a>");
 			}
-		}
-		else if (searchType.equals("companies"))
-		{
+		} else if (searchType.equals("companies")) {
 			List<CompanyBean> companies = null;
-			try {
-				companies = SearchDAO.searchForCompany(toSearch);
-			} catch (SQLException e) {
-				throw new ServletException("Error when getting projects from DB", e);
+			String category = request.getParameter("companyCategory");
+			if (category.equals("name")) {
+				try {
+					companies = SearchDAO.searchForCompany(toSearch);
+				} catch (SQLException e) {
+					throw new ServletException("Error when getting  ompanies from DB", e);
+				}
+			} else if (category.equals("description")) {
+				try {
+					companies = SearchDAO.searchForCompanyDescription(toSearch);
+				} catch (SQLException e) {
+					throw new ServletException("Error when getting  ompanies from DB", e);
+				}
 			}
-			for (CompanyBean c : companies)
-			{
+			for (CompanyBean c : companies) {
 				pw.println("<a href=\"company.jsp?name=" + c.getName() + "\"style=\"display:block\">" + c.getName()
 						+ "</a>");
 			}
