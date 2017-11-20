@@ -31,4 +31,19 @@ public class Man_Emp_ProDAO {
 		}
 		return manager;
 	}
+	public static boolean setManager(ProjectBean project,UserBean user){
+		String query="insert into man_emp_pro (pid,username) values (?,?)";
+		try{
+			connect=new ConnectionManager();
+			currentCon=connect.getConnection();
+			ps=currentCon.prepareStatement(query);
+			ps.setInt(1,project.getPid());
+			ps.setString(2, user.getUsername());
+			ps.executeUpdate();
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		return true;
+	}
 }

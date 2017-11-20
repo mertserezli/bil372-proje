@@ -93,8 +93,9 @@ public class ProjectDAO {
 		return project;
 	}
 
-	public static boolean createProject(ProjectBean project) {
+	public static boolean createProject(ProjectBean project,UserBean user) {
 		String insertQuery = "insert into project (title,description,tags,creation_date) values (?,?,?,?)";
+		String SearchQuery="SELECT pid FROM project ORDER BY pid DESC LIMIT 1";
 		try {
 			connect = new ConnectionManager();
 			currentCon = connect.getConnection();
@@ -105,6 +106,14 @@ public class ProjectDAO {
 			ps.setArray(3, tags);
 			ps.setDate(4, new java.sql.Date(Calendar.getInstance().getTime().getTime()));
 			ps.executeUpdate();
+			
+			ps=currentCon.prepareStatement(SearchQuery);
+			rs=ps.executeQuery();
+			if(rs.next()){
+				project.setPid(rs.getInt("pid"));
+				Man_Emp_ProDAO.setManager(project, user);
+				Work_Emp_ProDAO.addEmployee(user, project);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
