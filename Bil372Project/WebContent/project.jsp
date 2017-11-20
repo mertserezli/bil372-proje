@@ -15,19 +15,21 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="css/profile.css">
+<link rel="stylesheet" href="css/navBar.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="css/Project.css">
 <title><%=project.getTitle()%></title>
 </head>
 <body>
-<ul>
-
-  <li><a href="profile.jsp?username=<%=currentUser.getUsername()%>"><%=currentUser.getUsername() %></a></li>
-  <li><a href="search.jsp">Search</a></li>
-  <li><a href="mytasks.jsp">My Tasks</a></li>
-  <li><a href="mymessages.jsp">My Messages</a></li>
-  <li><a href="index.jsp">Logout</a></li>
-</ul> 
+	<div class="navbar">
+		<ul>
+		  <li><a href="profile.jsp?username=<%=currentUser.getUsername()%>"><%=currentUser.getUsername() %></a></li>
+		  <li><a href="search.jsp">Search</a></li>
+		  <li><a href="mytasks.jsp">My Tasks</a></li>
+		  <li><a href="mymessages.jsp">My Messages</a></li>
+		  <li><a href="index.jsp">Logout</a></li>
+		</ul>
+	</div>
 <h1><%=project.getTitle()%></h1>
 <h2><%=project.getDescription()%></h2>
 <h3>This project contains:<br><%=Arrays.toString(project.getTags())%></h3>
