@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 
+import models.CommentBean;
 import models.ProjectBean;
 import models.UserBean;
 
@@ -158,6 +159,32 @@ public class ProjectDAO {
 			}
 		}
 		return result;
+	}
+	public static ArrayList<CommentBean> getComments(ProjectBean project){
+		int pid=project.getPid();
+		ArrayList<CommentBean> comments=new ArrayList<>();
+		String query="select * from project_comments where pid=?";
+		try {
+			connect = new ConnectionManager();
+			currentCon = connect.getConnection();
+			ps = currentCon.prepareStatement(query);
+			ps.setInt(1, pid);
+			rs = ps.executeQuery();
+			while(rs.next()){
+				CommentBean comment=new CommentBean();
+				comment.setCid(rs.getInt("cid"));
+				comment.setContent(rs.getString("content"));
+				comment.setPid(rs.getInt("pid"));
+				comment.setUsername(rs.getString("username"));
+				comments.add(comment);
+			}
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return new ArrayList<>();
+		}
+		return comments;
+		
 	}
 
 }

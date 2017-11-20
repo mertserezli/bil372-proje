@@ -9,9 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dataAccess.CommentsDao;
 import dataAccess.ProfileDAO;
 import dataAccess.Work_Emp_ProDAO;
 import dataAccess.ProjectDAO;
+import models.CommentBean;
 import models.ProjectBean;
 import models.UserBean;
 
@@ -48,19 +50,41 @@ public class ProjectServlet extends HttpServlet {
 	}
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, java.io.IOException {
-		String username=request.getParameter("username");
+		
+		String click=request.getParameter("click");
 		PrintWriter pw = response.getWriter();
-		ProjectBean currentProject=(ProjectBean) request.getSession().getAttribute("currentProject");
-		UserBean user=new UserBean();
-		user.setUserName(username);
-		ProfileDAO.loadUser(user);
-		boolean succes=Work_Emp_ProDAO.addEmployee(user,currentProject);
-		if(succes){
-			pw.println("New Employee has been added");
+		
+		if(click.equals("Add Employee")){
+			String username=request.getParameter("username");
+			ProjectBean currentProject=(ProjectBean) request.getSession().getAttribute("currentProject");
+			UserBean user=new UserBean();
+			user.setUserName(username);
+			ProfileDAO.loadUser(user);
+			boolean success=Work_Emp_ProDAO.addEmployee(user,currentProject);
+			if(success){
+				pw.println("New Employee has been added");
+			}
+			else{
+				pw.println("New Employee could not been added");
+			}
 		}
-		else{
-			pw.println("New Employee could not been added");
+		else if(click.equals("Add Comment")){
+			UserBean user=(UserBean) request.getSession().getAttribute("currentuser");
+			ProjectBean currentProject=(ProjectBean) request.getSession().getAttribute("currentProject");
+			String content=request.getParameter("content");
+			CommentBean comment=new CommentBean();
+			comment.setContent(content);
+			comment.setPid(currentProject.getPid());
+			comment.setUsername(user.getUsername());
+			boolean success=CommentsDao.addComment(currentProject, user,comment);
+			if(success){
+				pw.println("New Comment has been added");
+			}
+			else{
+				pw.println("New Comment could not been added");
+			}
 		}
+		
 		
 	}
 
