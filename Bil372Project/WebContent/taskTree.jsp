@@ -28,9 +28,7 @@
 		
 		<% String html = (String) request.getAttribute("tree"); %>
 		<%= html %>
-		<br>
 		
-		<br>
 		<form action="addEmployeeToTask" method="get"><!--TODO: burayi duzelt--> 
 			<label>task title</label>
 			<input type="text" name="title">
