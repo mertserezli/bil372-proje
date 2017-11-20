@@ -26,7 +26,7 @@ public class NewProjectServlet extends HttpServlet  {
 				pw.println("New Project Successfully Created");
 				return;
 			}
-			pw.println("New project Could Not Been Created");
+			pw.println("New Project Could Not Be Created");
 			
 		}
 		catch(Exception e){

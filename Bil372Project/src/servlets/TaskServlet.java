@@ -28,7 +28,7 @@ public class TaskServlet extends HttpServlet{
 		}
 		catch(SQLException e)
 		{
-			 throw new ServletException("Error when getting projects from DB", e);
+			 throw new ServletException("Error when getting tasks from DB", e);
 		}
 		request.setAttribute("tasks",tasks);
 		RequestDispatcher rd= request.getRequestDispatcher("mytasks.jsp");

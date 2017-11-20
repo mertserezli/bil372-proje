@@ -83,13 +83,13 @@ public class SearchServlet extends HttpServlet {
 				try {
 					companies = SearchDAO.searchForCompany(toSearch);
 				} catch (SQLException e) {
-					throw new ServletException("Error when getting  ompanies from DB", e);
+					throw new ServletException("Error when getting  companies from DB", e);
 				}
 			} else if (category.equals("description")) {
 				try {
 					companies = SearchDAO.searchForCompanyDescription(toSearch);
 				} catch (SQLException e) {
-					throw new ServletException("Error when getting  ompanies from DB", e);
+					throw new ServletException("Error when getting  companies from DB", e);
 				}
 			}
 			for (CompanyBean c : companies) {

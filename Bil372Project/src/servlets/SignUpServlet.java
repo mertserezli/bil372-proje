@@ -28,7 +28,7 @@ public class SignUpServlet extends HttpServlet {
 			} else if (SignUpDAO.signUp(user)) {
 				pw.println("<h1>New user Successfully created!</h1> <br/>");
 			} else
-				pw.println("<h1>New user could not been created!</h1> <br/>");
+				pw.println("<h1>New user could not be created!</h1> <br/>");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

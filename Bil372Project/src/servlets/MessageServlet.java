@@ -30,10 +30,10 @@ public class MessageServlet extends HttpServlet{
 				
 				boolean success=MessageDAO.sendMessage(message);
 				if(success){
-					pw.println("Message is sent succesfully");
+					pw.println("Message sent succesfully");
 					return;
 				}
-				pw.println("Message couldn't sent");
+				pw.println("Message couldn't be sent");
 				
 			}
 			catch(Exception e){
