@@ -28,31 +28,54 @@
 			  <li><a href="index.jsp">Logout</a></li>
 			</ul>
 		</div>
-		
-		<% String html = (String) request.getAttribute("tree"); %>
-		<%= html %>
+		<div id="forest">
+			<h3>Task Tree</h3>
+			<% String html = (String) request.getAttribute("tree"); %>
+			<%= html %>
+		</div>
 		
 		<% ArrayList<UserBean> employeeList = (ArrayList<UserBean>)request.getAttribute("employeeList"); %>
-		
-		 <ul class="list-group">
-		 	<% for(UserBean employee :employeeList) { %>
-            	<li class="list-group-item"> <a href="profile.jsp?username="<%=employee.getUsername() %> > <%= employee.getFirstName() %></a> </li>
-    		<% } %>
-		</ul>
-		
-		<form action="addEmployeeToTask" method="get"><!--TODO: burayi duzelt--> 
-			<label>task title</label>
-			<input type="text" name="title">
-			<label>employee</label>
-			<input type="text" name="description">
-			
-			<input type="submit" value="Create">  
-		</form>
+		<div id="employeeList">
+			<h3>Employees working on this project</h3>
+			 <ul class="list-group">
+			 	<% for(UserBean employee :employeeList) { %>
+	            	<li class="list-group-item"> <a href="profile.jsp?username="<%=employee.getUsername() %> > <%= employee.getFirstName() %></a> </li>
+	    		<% } %>
+			</ul>
+		</div>
+		<div id="forms">
+			<h3>Add employee to task</h3>
+			<form action="addEmployeeToTask" method="get"><!--TODO: burayi duzelt--> 
+				<label>task title</label>
+				<input type="text" name="title">
+				<label>employee</label>
+				<input type="text" name="description">
+				
+				<input type="submit" value="Create">  
+			</form>
+		</div>
+
 	<script type="text/javascript">
 		
 	</script>
 	</body>
+	
 	<style type="text/css">
+	
+		#employeeList {
+			float: left; 
+ 			width: 1000px; 
+	    }
+	    
+	    #forest {
+	        float: left;
+	        width: 1000px;
+	    }
+	    
+	    #forms{
+	    	float:left;
+	    	width: 1000px;
+	    }
 
 		.task{
 			background-color:#ff0000;
