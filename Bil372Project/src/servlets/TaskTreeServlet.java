@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -34,11 +35,57 @@ public class TaskTreeServlet extends HttpServlet {
 				ArrayList<UserBean> employeeList = ProjectDAO.getEmployees(project);
 				request.setAttribute("employeeList", employeeList);
 				request.setAttribute("tree", tree);
+				request.setAttribute("project", project);
 				dispatcher = context.getNamedDispatcher("taskTree");
 				dispatcher.forward(request, response);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+
+	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		String action = req.getParameter("action");
+		if (action.equals("addEmpToTask")) {
+			int tid = Integer.parseInt(req.getParameter("tid"));
+			String username = req.getParameter("username");
+			boolean success = TaskDAO.addEmpToTask(username, tid);
+			if (success)
+				res.getWriter().append("Employee added succesfully");
+		} else if (action.equals("addPreToTask")) {
+			int ptid = Integer.parseInt(req.getParameter("ptid"));
+			int ctid = Integer.parseInt(req.getParameter("ctid"));
+			TaskDAO.addPreToTask(ptid, ctid);
+			res.getWriter().append("Task prerequisite added succesfully");
+		} else if (action.equals("addTask")) {
+			TaskBean task = new TaskBean();
+			task.setTitle(req.getParameter("title"));
+			task.setDescription(req.getParameter("description"));
+			task.setPerformanceCriteria(req.getParameter("criteria"));
+			int upperbound = Integer.parseInt(req.getParameter("upperbound"));
+			task.setPerformanceUpperbound(upperbound);
+			String deadline = req.getParameter("deadline");
+			String day = deadline.substring(0, deadline.indexOf("."));
+			deadline = deadline.substring(deadline.indexOf(".") + 1);
+			String month = deadline.substring(0, deadline.indexOf("."));
+			deadline = deadline.substring(deadline.indexOf(".") + 1);
+			String year = deadline;
+			Date deadlineDate = new Date(Integer.parseInt(year) - 1900, Integer.parseInt(month) - 1,
+					Integer.parseInt(day));
+			task.setDeadline(deadlineDate);
+			int pid = Integer.parseInt(req.getParameter("pid"));
+			task.setPid(pid);
+			TaskDAO.addTask(task);
+			res.getWriter().append("Task added successfully");
+		} else if (action.equals("deleteTask")) {
+			int tid = Integer.parseInt(req.getParameter("tid"));
+			TaskDAO.deleteTask(tid);
+			res.getWriter().append("Task deleted successfully");
+		} else if (action.equals("removeEmployee")) {
+			int tid = Integer.parseInt(req.getParameter("tid"));
+			String username = req.getParameter("username");
+			TaskDAO.removeEmployee(tid, username);
+			res.getWriter().append("Employee removed successfully");
 		}
 	}
 
@@ -61,16 +108,16 @@ public class TaskTreeServlet extends HttpServlet {
 		ArrayList<TaskBean> childTasks = TaskDAO.getChildTasks(parentTask);
 
 		html += "<li>";
-		html += "<a data-tid=\"" + parentTask.getTid() + "\" href=\"#\" class=\"task\">" + parentTask.getTitle()
-				+ "</a>";
+		html += "<a href=\"task?tid=" + parentTask.getTid() + "\" class=\"task\">" + parentTask.getTid() + " "
+				+ parentTask.getTitle() + "</a>";
 
 		if (!employees.isEmpty() || !childTasks.isEmpty())
 			html += "<ul>";
 
 		if (!employees.isEmpty()) {
 			for (UserBean employee : employees) {
-				html += "<li>" + "<a data-username=\"" + employee.getUsername() + "\" href=\"#\" class=\"employee\">"
-						+ employee.getFirstName() + " " + employee.getLastName() + "</a> </li>";
+				html += "<li>" + "<a href=profile.jsp?username=" + employee.getUsername() + " class=\"employee\">"
+						+ employee.getUsername() + "</a> </li>";
 			}
 		}
 
