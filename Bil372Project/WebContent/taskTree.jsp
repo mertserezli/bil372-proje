@@ -9,9 +9,10 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		 <link rel="stylesheet" type="text/css" href="css/tree.css" />
-		 <link rel="stylesheet" type="text/css" href="css/navBar.css" />
-		 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/profile.css">
+		<link rel="stylesheet" type="text/css" href="css/tree.css" />
+		<link rel="stylesheet" type="text/css" href="css/navBar.css" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 		<title>Task Tree</title>
 		<% 
 		UserBean currentUser = (UserBean)session.getAttribute("currentSessionUser");
