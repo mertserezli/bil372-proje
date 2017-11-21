@@ -16,10 +16,14 @@
 	UserBean currentUser = (UserBean)session.getAttribute("currentSessionUser");
 	List<NotificationBean> m= NotificationDAO.getNotifications(currentUser.getUsername());
 	List<NotificationBean> hatirlatici=NotificationDAO.getUpcomingMeetings(currentUser.getUsername());
+	List<NotificationBean> taskHatirlatici=NotificationDAO.getUpcomingDeadlines(currentUser.getUsername());
 	//List<MessageBean> m=MessageDAO.getUserMessages("cemsozens");
 %>
 </head>
 <body>
+<% for(int i = taskHatirlatici.size()-1; i >=0; i-=1) { %>
+<h2><%=taskHatirlatici.get(i).getDate()%>-<%=taskHatirlatici.get(i).getNotification()%></h2>
+<% } %>
 <% for(int i = hatirlatici.size()-1; i >=0; i-=1) { %>
 <h2><%=hatirlatici.get(i).getDate()%>-<%=hatirlatici.get(i).getNotification()%></h2>
 <% } %>
