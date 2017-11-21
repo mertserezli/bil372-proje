@@ -25,6 +25,7 @@
 		<li><a href="search.jsp">Search</a></li>
 		<li><a href="mytasks.jsp">My Tasks</a></li>
 		<li><a href="mymessages.jsp">My Messages</a></li>
+		<li><a href="notifications.jsp">Notifications</a></li>
 		<li><a href="index.jsp">Logout</a></li>
 	</ul>
 </div>
