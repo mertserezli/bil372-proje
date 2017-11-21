@@ -108,7 +108,7 @@ public class TaskTreeServlet extends HttpServlet {
 		ArrayList<TaskBean> childTasks = TaskDAO.getChildTasks(parentTask);
 
 		html += "<li>";
-		html += "<a href=\"task?tid=" + parentTask.getTid() + "\" class=\"task\">" + parentTask.getTid() + " "
+		html += "<a href=\"Task?tid=" + parentTask.getTid() + "\" class=\"task\">" + parentTask.getTid() + " "
 				+ parentTask.getTitle() + "</a>";
 
 		if (!employees.isEmpty() || !childTasks.isEmpty())

@@ -378,4 +378,61 @@ public class TaskDAO {
 		return true;
 	}
 
+	public static TaskBean getTask(TaskBean task) {
+		String searchQuery = "Select * From task where tid=?";
+		try {
+			ConnectionManager connect = new ConnectionManager();
+			currentCon = connect.getConnection();
+			ps = currentCon.prepareStatement(searchQuery);
+			ps.setInt(1, task.getTid());
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				task.setPid(rs.getInt("pid"));
+				task.setDescription(rs.getString("description"));
+				task.setPerformanceCriteria(rs.getString("performancecriteria"));
+				task.setPerformanceUpperbound(rs.getInt("performanceupperbound"));
+				task.setPerfromanceValue(rs.getInt("performancevalue"));
+				task.setDeadline(rs.getDate("deadline"));
+				task.setTitle(rs.getString("title"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return task;
+
+	}
+
+	public static boolean updatePerformanceValue(int tid, int value) {
+		String update = "UPDATE task SET performancevalue=? WHERE tid=?;";// TODO: burayi duzelt
+		try {
+			ConnectionManager connect = new ConnectionManager();
+			currentCon = connect.getConnection();
+			ps = currentCon.prepareStatement(update);
+			ps.setInt(1, value);
+			ps.setInt(2, tid);
+			ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			if (ps != null) {
+				try {
+					ps.close();
+				} catch (Exception e) {
+				}
+				ps = null;
+			}
+			if (currentCon != null) {
+				try {
+					currentCon.close();
+				} catch (Exception e) {
+				}
+				currentCon = null;
+			}
+		}
+
+		return true;
+
+	}
+
 }

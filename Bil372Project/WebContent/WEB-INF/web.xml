@@ -15,7 +15,7 @@
     <servlet-name>LoginServlet</servlet-name>
     <servlet-class>servlets.LoginServlet</servlet-class>
   </servlet>
-   <servlet>
+  <servlet>
     <description>Shows current user's tasks</description>
     <display-name>TaskServlet</display-name>
     <servlet-name>TaskServlet</servlet-name>
@@ -26,17 +26,18 @@
     <display-name>SignUpServlet</display-name>
     <servlet-name>SignUpServlet</servlet-name>
     <servlet-class>servlets.SignUpServlet</servlet-class>
-  </servlet><servlet>
+  </servlet>
+  <servlet>
     <description>sends password to users</description>
     <display-name>ForgotPasswordServlet</display-name>
     <servlet-name>ForgotPasswordServlet</servlet-name>
     <servlet-class>servlets.ForgotPasswordServlet</servlet-class>
   </servlet>
   <servlet>
-  	<description>Searches for users or projects</description>
-  	<display-name>SearchServlet</display-name>
-  	<servlet-name>SearchServlet</servlet-name>
-  	<servlet-class>servlets.SearchServlet</servlet-class>
+    <description>Searches for users or projects</description>
+    <display-name>SearchServlet</display-name>
+    <servlet-name>SearchServlet</servlet-name>
+    <servlet-class>servlets.SearchServlet</servlet-class>
   </servlet>
   <servlet>
     <description>uploads user image</description>
@@ -44,7 +45,7 @@
     <servlet-name>UploadServlet</servlet-name>
     <servlet-class>servlets.UploadServlet</servlet-class>
   </servlet>
-   <servlet>
+  <servlet>
     <description>creates new project</description>
     <display-name>NewProjectServlet</display-name>
     <servlet-name>NewProjectServlet</servlet-name>
@@ -69,10 +70,25 @@
     <servlet-class>servlets.TaskTreeServlet</servlet-class>
   </servlet>
   <servlet>
+  	<description>show task details</description>
+    <display-name>TaskDescriptionServlet</display-name>
+    <servlet-name>TaskDescriptionServlet</servlet-name>
+    <servlet-class>servlets.TaskDescriptionServlet</servlet-class>
+  </servlet>
+  <servlet>
     <display-name>taskTree</display-name>
     <servlet-name>taskTree</servlet-name>
     <jsp-file>/taskTree.jsp</jsp-file>
   </servlet>
+  <servlet>
+    <display-name>task</display-name>
+    <servlet-name>task</servlet-name>
+    <jsp-file>/task.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TaskDescriptionServlet</servlet-name>
+    <url-pattern>/Task</url-pattern>
+  </servlet-mapping>
   <servlet-mapping>
     <servlet-name>TaskTreeServlet</servlet-name>
     <url-pattern>/TaskTree</url-pattern>
@@ -110,7 +126,7 @@
     <url-pattern>/ForgotPasswordServlet</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-  	<servlet-name>SearchServlet</servlet-name>
-  	<url-pattern>/SearchServlet</url-pattern>
+    <servlet-name>SearchServlet</servlet-name>
+    <url-pattern>/SearchServlet</url-pattern>
   </servlet-mapping>
 </web-app>
