@@ -307,19 +307,23 @@ public class TaskDAO {
 	public static boolean deleteTask(int tid) {
 		String deleteTask = "DELETE FROM task WHERE tid=?;";
 		String deletePrerequisite = "DELETE FROM prerequ_task WHERE pretid=?;";
+		String deleteChild = "DELETE FROM prerequ_task WHERE tid=?;";
 		String deleteWorkOnTask = "DELETE FROM work_task_emp WHERE tid=?;";
 		try {
 			ConnectionManager connect = new ConnectionManager();
 			currentCon = connect.getConnection();
-			ps = currentCon.prepareStatement(deleteTask);
-			ps.setInt(1, tid);
-			ps.executeUpdate();
-			ps.close();
 			ps = currentCon.prepareStatement(deletePrerequisite);
 			ps.setInt(1, tid);
 			ps.executeUpdate();
 			ps.close();
+			ps = currentCon.prepareStatement(deleteChild);
+			ps.setInt(1, tid);
+			ps.executeUpdate();
 			ps = currentCon.prepareStatement(deleteWorkOnTask);
+			ps.setInt(1, tid);
+			ps.executeUpdate();
+			ps.close();
+			ps = currentCon.prepareStatement(deleteTask);
 			ps.setInt(1, tid);
 			ps.executeUpdate();
 			ps.close();
