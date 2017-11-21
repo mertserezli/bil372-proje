@@ -2,6 +2,7 @@ package dataAccess;
 import models.NotificationBean;
 import models.UserBean;
 import models.ProjectBean;
+import models.TaskBean;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -90,6 +91,26 @@ public class NotificationDAO {
 						result.add(n);
 					}
 				}
+			}
+		}
+		return result;
+	}
+	public static List<NotificationBean> getUpcomingDeadlines(String usernameRequest) throws SQLException
+	{
+		List<NotificationBean> result = new ArrayList<NotificationBean>();
+		java.sql.Date dateNow = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+		List<TaskBean> tasks=TaskDAO.searchTasksForUser(usernameRequest);
+		for(TaskBean t:tasks)
+		{
+			Date d=t.getDeadline();
+			if(d.getYear()==dateNow.getYear() && d.getMonth()==dateNow.getMonth() && d.getDay()-dateNow.getDay()<=7)
+			{
+				int day=d.getDay()-dateNow.getDay();
+				NotificationBean n = new NotificationBean();
+				n.setDate(dateNow);
+				n.setUsername(usernameRequest);
+				n.setNotification("(Task) "+t.getTitle()+" adli taskinizin "+d+" tarihli deadline tarihine "+day+" gün kalmistir");
+				result.add(n);
 			}
 		}
 		return result;
