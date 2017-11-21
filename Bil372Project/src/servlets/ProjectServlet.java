@@ -3,6 +3,7 @@ package servlets;
 import java.io.PrintWriter;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -13,9 +14,12 @@ import dataAccess.CommentsDAO;
 import dataAccess.ProfileDAO;
 import dataAccess.Work_Emp_ProDAO;
 import dataAccess.ProjectDAO;
+import dataAccess.NotificationDAO;
 import models.CommentBean;
 import models.ProjectBean;
 import models.UserBean;
+import models.NotificationBean;
+
 
 public class ProjectServlet extends HttpServlet {
 
@@ -23,6 +27,7 @@ public class ProjectServlet extends HttpServlet {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	java.sql.Date Date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, java.io.IOException {
@@ -47,6 +52,14 @@ public class ProjectServlet extends HttpServlet {
 			return;
 		}
 		ProjectDAO.setNewMeeting(currentProject,date);
+		for(UserBean worker: workers){
+
+			NotificationBean n = new NotificationBean();
+			n.setDate(Date);
+			n.setNotification("(Project)"+currentProject.getTitle()+" adli projenizde "+date+" tarihine bir meeting set edildi");
+			n.setUsername(worker.getUsername());
+			NotificationDAO.sendNotification(n);
+		}
 	}
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, java.io.IOException {
@@ -62,6 +75,15 @@ public class ProjectServlet extends HttpServlet {
 			ProfileDAO.loadUser(user);
 			boolean success=Work_Emp_ProDAO.addEmployee(user,currentProject);
 			if(success){
+				ArrayList<UserBean> workers=Work_Emp_ProDAO.getWorkers(currentProject);
+				for(UserBean u:workers)
+				{
+					NotificationBean n = new NotificationBean();
+					n.setDate(Date);
+					n.setNotification("(Project)-"+username+" adlı calisan"+currentProject.getTitle()+" adli projenize eklendi");
+					n.setUsername(u.getUsername());
+					NotificationDAO.sendNotification(n);
+				}
 				pw.println("New Employee has been added");
 			}
 			else{
@@ -78,6 +100,15 @@ public class ProjectServlet extends HttpServlet {
 			comment.setUsername(user.getUsername());
 			boolean success=CommentsDAO.addComment(currentProject, user,comment);
 			if(success){
+				ArrayList<UserBean> workers=Work_Emp_ProDAO.getWorkers(currentProject);
+				for(UserBean u:workers)
+				{
+					NotificationBean n = new NotificationBean();
+					n.setDate(Date);
+					n.setNotification("(Project)-"+user.getUsername()+" adli kullanici "+currentProject.getTitle()+" adli projenize yorum yapti");
+					n.setUsername(u.getUsername());
+					NotificationDAO.sendNotification(n);
+				}
 				pw.println("New Comment has been added");
 			}
 			else{

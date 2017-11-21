@@ -10,8 +10,10 @@ import java.sql.Date;
 import java.util.Calendar;
 
 import dataAccess.MessageDAO;
+import dataAccess.NotificationDAO;
 import models.MessageBean;
 import models.UserBean;
+import models.NotificationBean;
 
 public class MessageServlet extends HttpServlet{
 
@@ -30,10 +32,18 @@ public class MessageServlet extends HttpServlet{
 				
 				boolean success=MessageDAO.sendMessage(message);
 				if(success){
-					pw.println("Message sent succesfully");
+					for(String receiver:message.getReceiver())
+					{
+						NotificationBean notification = new NotificationBean();
+						notification.setUsername(receiver);
+						notification.setDate(date);
+						notification.setNotification("(Mesaj)"+message.getSender()+" adli kullanici size mesaj gonderdi");
+						NotificationDAO.sendNotification(notification);
+					}
+					pw.println("Message is sent succesfully");
 					return;
 				}
-				pw.println("Message couldn't be sent");
+				pw.println("Message couldn't sent");
 				
 			}
 			catch(Exception e){
