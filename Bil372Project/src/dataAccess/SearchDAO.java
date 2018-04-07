@@ -12,9 +12,9 @@ import models.CompanyBean;
 import models.Emp_QualificationsBean;
 import models.ProjectBean;
 
-public class SearchDAO {
+public class SearchDAO extends DAO {
 
-	static Connection currentCon = null;
+	static Connection currentConnection = null;
 	static ResultSet rs = null;
 
 	public static List<UserBean> searchForUser(String usernameRequest) throws SQLException {
@@ -27,8 +27,8 @@ public class SearchDAO {
 
 		try {
 			ConnectionManager connect = new ConnectionManager();
-			currentCon = connect.getConnection();
-			ps = currentCon.prepareStatement(searchQuery);
+			currentConnection = connect.getConnection();
+			ps = currentConnection.prepareStatement(searchQuery);
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
@@ -45,29 +45,8 @@ public class SearchDAO {
 				result.add(user);
 			}
 		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (Exception e) {
-				}
-				rs = null;
-			}
-			if (ps != null) {
-				try {
-					ps.close();
-				} catch (Exception e) {
-				}
-				ps = null;
-			}
-			if (currentCon != null) {
-				try {
-					currentCon.close();
-				} catch (Exception e) {
-				}
-				currentCon = null;
-			}
+			finalizeConnection(currentConnection, ps, rs);
 		}
-
 		return result;
 	}
 
@@ -81,8 +60,8 @@ public class SearchDAO {
 
 		try {
 			ConnectionManager connect = new ConnectionManager();
-			currentCon = connect.getConnection();
-			ps = currentCon.prepareStatement(searchQuery);
+			currentConnection = connect.getConnection();
+			ps = currentConnection.prepareStatement(searchQuery);
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
@@ -99,29 +78,8 @@ public class SearchDAO {
 				result.add(user);
 			}
 		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (Exception e) {
-				}
-				rs = null;
-			}
-			if (ps != null) {
-				try {
-					ps.close();
-				} catch (Exception e) {
-				}
-				ps = null;
-			}
-			if (currentCon != null) {
-				try {
-					currentCon.close();
-				} catch (Exception e) {
-				}
-				currentCon = null;
-			}
+			finalizeConnection(currentConnection, ps, rs);
 		}
-
 		return result;
 	}
 
@@ -141,8 +99,8 @@ public class SearchDAO {
 
 		try {
 			ConnectionManager connect = new ConnectionManager();
-			currentCon = connect.getConnection();
-			ps = currentCon.prepareStatement(searchQueryOne);
+			currentConnection = connect.getConnection();
+			ps = currentConnection.prepareStatement(searchQueryOne);
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
@@ -154,7 +112,7 @@ public class SearchDAO {
 			for (String e : employees) {
 				searchQueryTwo = "Select * From EMPLOYEE Where Username = '" + e + "'";
 
-				ps = currentCon.prepareStatement(searchQueryTwo);
+				ps = currentConnection.prepareStatement(searchQueryTwo);
 				rs = ps.executeQuery();
 
 				while (rs.next()) {
@@ -176,29 +134,8 @@ public class SearchDAO {
 
 			}
 		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (Exception e) {
-				}
-				rs = null;
-			}
-			if (ps != null) {
-				try {
-					ps.close();
-				} catch (Exception e) {
-				}
-				ps = null;
-			}
-			if (currentCon != null) {
-				try {
-					currentCon.close();
-				} catch (Exception e) {
-				}
-				currentCon = null;
-			}
+			finalizeConnection(currentConnection, ps, rs);
 		}
-
 		return result;
 	}
 
@@ -210,8 +147,8 @@ public class SearchDAO {
 
 		try {
 			ConnectionManager connect = new ConnectionManager();
-			currentCon = connect.getConnection();
-			ps = currentCon.prepareStatement(searchQuery);
+			currentConnection = connect.getConnection();
+			ps = currentConnection.prepareStatement(searchQuery);
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
@@ -225,29 +162,8 @@ public class SearchDAO {
 				result.add(project);
 			}
 		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (Exception e) {
-				}
-				rs = null;
-			}
-			if (ps != null) {
-				try {
-					ps.close();
-				} catch (Exception e) {
-				}
-				ps = null;
-			}
-			if (currentCon != null) {
-				try {
-					currentCon.close();
-				} catch (Exception e) {
-				}
-				currentCon = null;
-			}
+			finalizeConnection(currentConnection, ps, rs);
 		}
-
 		return result;
 	}
 
@@ -261,8 +177,8 @@ public class SearchDAO {
 
 		try {
 			ConnectionManager connect = new ConnectionManager();
-			currentCon = connect.getConnection();
-			ps = currentCon.prepareStatement(searchQuery);
+			currentConnection = connect.getConnection();
+			ps = currentConnection.prepareStatement(searchQuery);
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
@@ -276,29 +192,8 @@ public class SearchDAO {
 				result.add(project);
 			}
 		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (Exception e) {
-				}
-				rs = null;
-			}
-			if (ps != null) {
-				try {
-					ps.close();
-				} catch (Exception e) {
-				}
-				ps = null;
-			}
-			if (currentCon != null) {
-				try {
-					currentCon.close();
-				} catch (Exception e) {
-				}
-				currentCon = null;
-			}
+			finalizeConnection(currentConnection, ps, rs);
 		}
-
 		return result;
 	}
 
@@ -317,8 +212,8 @@ public class SearchDAO {
 
 		try {
 			ConnectionManager connect = new ConnectionManager();
-			currentCon = connect.getConnection();
-			ps = currentCon.prepareStatement(searchQuery);
+			currentConnection = connect.getConnection();
+			ps = currentConnection.prepareStatement(searchQuery);
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
@@ -331,32 +226,9 @@ public class SearchDAO {
 				project.setCreation_Date(rs.getDate("Creation_Date"));
 				result.add(project);
 			}
-		} finally
-
-		{
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (Exception e) {
-				}
-				rs = null;
-			}
-			if (ps != null) {
-				try {
-					ps.close();
-				} catch (Exception e) {
-				}
-				ps = null;
-			}
-			if (currentCon != null) {
-				try {
-					currentCon.close();
-				} catch (Exception e) {
-				}
-				currentCon = null;
-			}
+		} finally {
+			finalizeConnection(currentConnection, ps, rs);
 		}
-
 		return result;
 	}
 
@@ -368,8 +240,8 @@ public class SearchDAO {
 
 		try {
 			ConnectionManager connect = new ConnectionManager();
-			currentCon = connect.getConnection();
-			ps = currentCon.prepareStatement(searchQuery);
+			currentConnection = connect.getConnection();
+			ps = currentConnection.prepareStatement(searchQuery);
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
@@ -380,29 +252,8 @@ public class SearchDAO {
 				result.add(company);
 			}
 		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (Exception e) {
-				}
-				rs = null;
-			}
-			if (ps != null) {
-				try {
-					ps.close();
-				} catch (Exception e) {
-				}
-				ps = null;
-			}
-			if (currentCon != null) {
-				try {
-					currentCon.close();
-				} catch (Exception e) {
-				}
-				currentCon = null;
-			}
+			finalizeConnection(currentConnection, ps, rs);
 		}
-
 		return result;
 	}
 
@@ -415,8 +266,8 @@ public class SearchDAO {
 
 		try {
 			ConnectionManager connect = new ConnectionManager();
-			currentCon = connect.getConnection();
-			ps = currentCon.prepareStatement(searchQuery);
+			currentConnection = connect.getConnection();
+			ps = currentConnection.prepareStatement(searchQuery);
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
@@ -427,29 +278,8 @@ public class SearchDAO {
 				result.add(company);
 			}
 		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (Exception e) {
-				}
-				rs = null;
-			}
-			if (ps != null) {
-				try {
-					ps.close();
-				} catch (Exception e) {
-				}
-				ps = null;
-			}
-			if (currentCon != null) {
-				try {
-					currentCon.close();
-				} catch (Exception e) {
-				}
-				currentCon = null;
-			}
+			finalizeConnection(currentConnection, ps, rs);
 		}
-
 		return result;
 	}
 }

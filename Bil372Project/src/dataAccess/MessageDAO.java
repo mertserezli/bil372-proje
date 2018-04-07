@@ -13,8 +13,8 @@ import java.util.List;
 
 import models.UserBean;
 
-public class MessageDAO {
-	static Connection currentCon = null;
+public class MessageDAO extends DAO {
+	static Connection currentConnection = null;
 	static ResultSet rs = null;
 	static PreparedStatement ps = null;
 
@@ -26,8 +26,8 @@ public class MessageDAO {
 
 		try {
 			ConnectionManager connect = new ConnectionManager();
-			currentCon = connect.getConnection();
-			ps = currentCon.prepareStatement(searchQuery);
+			currentConnection = connect.getConnection();
+			ps = currentConnection.prepareStatement(searchQuery);
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
@@ -41,29 +41,8 @@ public class MessageDAO {
 				result.add(m);
 			}
 		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (Exception e) {
-				}
-				rs = null;
-			}
-			if (ps != null) {
-				try {
-					ps.close();
-				} catch (Exception e) {
-				}
-				ps = null;
-			}
-			if (currentCon != null) {
-				try {
-					currentCon.close();
-				} catch (Exception e) {
-				}
-				currentCon = null;
-			}
+			finalizeConnection(currentConnection, ps, rs);
 		}
-
 		return result;
 	}
 
@@ -74,8 +53,8 @@ public class MessageDAO {
 				+ usernameRequest + "'";
 		try {
 			ConnectionManager connect = new ConnectionManager();
-			currentCon = connect.getConnection();
-			ps = currentCon.prepareStatement(searchQuery);
+			currentConnection = connect.getConnection();
+			ps = currentConnection.prepareStatement(searchQuery);
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
@@ -89,29 +68,8 @@ public class MessageDAO {
 				result.add(m);
 			}
 		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (Exception e) {
-				}
-				rs = null;
-			}
-			if (ps != null) {
-				try {
-					ps.close();
-				} catch (Exception e) {
-				}
-				ps = null;
-			}
-			if (currentCon != null) {
-				try {
-					currentCon.close();
-				} catch (Exception e) {
-				}
-				currentCon = null;
-			}
+			finalizeConnection(currentConnection, ps, rs);
 		}
-
 		return result;
 	}
 
@@ -129,8 +87,8 @@ public class MessageDAO {
 
 		try {
 			ConnectionManager connect = new ConnectionManager();
-			currentCon = connect.getConnection();
-			ps = currentCon.prepareStatement(insertQuery);
+			currentConnection = connect.getConnection();
+			ps = currentConnection.prepareStatement(insertQuery);
 			// ps.setString(1,mes.getmID());
 			ps.setString(1, mes.getSender());
 			ps.setString(2, mes.getTitle());
@@ -143,13 +101,15 @@ public class MessageDAO {
 		}
 		try {
 			ConnectionManager connect = new ConnectionManager();
-			currentCon = connect.getConnection();
-			ps = currentCon.prepareStatement(insertQuery2);
+			currentConnection = connect.getConnection();
+			ps = currentConnection.prepareStatement(insertQuery2);
 			;
 			ps.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
+		} finally {
+			finalizeConnection(currentConnection, ps, rs);
 		}
 		return true;
 	}

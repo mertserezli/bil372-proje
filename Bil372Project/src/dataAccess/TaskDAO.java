@@ -9,8 +9,8 @@ import models.ProjectBean;
 import models.TaskBean;
 import models.UserBean;
 
-public class TaskDAO {
-	static Connection currentCon = null;
+public class TaskDAO extends DAO {
+	static Connection currentConnection = null;
 	static ResultSet rs = null;
 	static PreparedStatement ps = null;
 
@@ -22,8 +22,8 @@ public class TaskDAO {
 		// deadline";// TODO: rewrite sql
 		try {
 			ConnectionManager connect = new ConnectionManager();
-			currentCon = connect.getConnection();
-			ps = currentCon.prepareStatement(searchQuery);
+			currentConnection = connect.getConnection();
+			ps = currentConnection.prepareStatement(searchQuery);
 			// ps.setString(1, username);
 			rs = ps.executeQuery();
 			while (rs.next()) {
@@ -42,6 +42,8 @@ public class TaskDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return tasks;
+		} finally {
+			finalizeConnection(currentConnection, ps, rs);
 		}
 		return tasks;
 
@@ -53,8 +55,8 @@ public class TaskDAO {
 		ArrayList<TaskBean> result = new ArrayList<TaskBean>();
 		try {
 			ConnectionManager connect = new ConnectionManager();
-			currentCon = connect.getConnection();
-			ps = currentCon.prepareStatement(searchQuery);
+			currentConnection = connect.getConnection();
+			ps = currentConnection.prepareStatement(searchQuery);
 			ps.setInt(1, project.getPid());
 			rs = ps.executeQuery();
 			while (rs.next()) {
@@ -72,27 +74,7 @@ public class TaskDAO {
 		} catch (Exception ex) {
 			System.out.println("Failed: An Exception has occurred! " + ex);
 		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (Exception e) {
-				}
-				rs = null;
-			}
-			if (ps != null) {
-				try {
-					ps.close();
-				} catch (Exception e) {
-				}
-				ps = null;
-			}
-			if (currentCon != null) {
-				try {
-					currentCon.close();
-				} catch (Exception e) {
-				}
-				currentCon = null;
-			}
+			finalizeConnection(currentConnection, ps, rs);
 		}
 		return result;
 	}
@@ -103,8 +85,8 @@ public class TaskDAO {
 		ArrayList<TaskBean> result = new ArrayList<TaskBean>();
 		try {
 			ConnectionManager connect = new ConnectionManager();
-			currentCon = connect.getConnection();
-			ps = currentCon.prepareStatement(searchQuery);
+			currentConnection = connect.getConnection();
+			ps = currentConnection.prepareStatement(searchQuery);
 			ps.setInt(1, parentTask.getTid());
 			rs = ps.executeQuery();
 			while (rs.next()) {
@@ -122,27 +104,7 @@ public class TaskDAO {
 		} catch (Exception ex) {
 			System.out.println("Failed: An Exception has occurred! " + ex);
 		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (Exception e) {
-				}
-				rs = null;
-			}
-			if (ps != null) {
-				try {
-					ps.close();
-				} catch (Exception e) {
-				}
-				ps = null;
-			}
-			if (currentCon != null) {
-				try {
-					currentCon.close();
-				} catch (Exception e) {
-				}
-				currentCon = null;
-			}
+			finalizeConnection(currentConnection, ps, rs);
 		}
 		return result;
 	}
@@ -153,8 +115,8 @@ public class TaskDAO {
 		ArrayList<UserBean> result = new ArrayList<UserBean>();
 		try {
 			ConnectionManager connect = new ConnectionManager();
-			currentCon = connect.getConnection();
-			ps = currentCon.prepareStatement(searchQuery);
+			currentConnection = connect.getConnection();
+			ps = currentConnection.prepareStatement(searchQuery);
 			ps.setInt(1, task.getTid());
 			rs = ps.executeQuery();
 			while (rs.next()) {
@@ -172,27 +134,7 @@ public class TaskDAO {
 		} catch (Exception ex) {
 			System.out.println("Failed: An Exception has occurred! " + ex);
 		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (Exception e) {
-				}
-				rs = null;
-			}
-			if (ps != null) {
-				try {
-					ps.close();
-				} catch (Exception e) {
-				}
-				ps = null;
-			}
-			if (currentCon != null) {
-				try {
-					currentCon.close();
-				} catch (Exception e) {
-				}
-				currentCon = null;
-			}
+			finalizeConnection(currentConnection, ps, rs);
 		}
 		return result;
 	}
@@ -201,8 +143,8 @@ public class TaskDAO {
 		String insertQuery = "INSERT INTO work_task_emp(username, tid) VALUES (?, ?);";
 		try {
 			ConnectionManager connect = new ConnectionManager();
-			currentCon = connect.getConnection();
-			ps = currentCon.prepareStatement(insertQuery);
+			currentConnection = connect.getConnection();
+			ps = currentConnection.prepareStatement(insertQuery);
 			ps.setString(1, username);
 			ps.setInt(2, tid);
 			ps.executeUpdate();
@@ -210,29 +152,8 @@ public class TaskDAO {
 			e.printStackTrace();
 			return false;
 		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (Exception e) {
-				}
-				rs = null;
-			}
-			if (ps != null) {
-				try {
-					ps.close();
-				} catch (Exception e) {
-				}
-				ps = null;
-			}
-			if (currentCon != null) {
-				try {
-					currentCon.close();
-				} catch (Exception e) {
-				}
-				currentCon = null;
-			}
+			finalizeConnection(currentConnection, ps, rs);
 		}
-
 		return true;
 	}
 
@@ -240,8 +161,8 @@ public class TaskDAO {
 		String insertQuery = "INSERT INTO prerequ_task(tid, pretid) VALUES (?, ?);";
 		try {
 			ConnectionManager connect = new ConnectionManager();
-			currentCon = connect.getConnection();
-			ps = currentCon.prepareStatement(insertQuery);
+			currentConnection = connect.getConnection();
+			ps = currentConnection.prepareStatement(insertQuery);
 			ps.setInt(1, ctid);
 			ps.setInt(2, ptid);
 			ps.executeUpdate();
@@ -249,22 +170,8 @@ public class TaskDAO {
 			e.printStackTrace();
 			return false;
 		} finally {
-			if (ps != null) {
-				try {
-					ps.close();
-				} catch (Exception e) {
-				}
-				ps = null;
-			}
-			if (currentCon != null) {
-				try {
-					currentCon.close();
-				} catch (Exception e) {
-				}
-				currentCon = null;
-			}
+			finalizeConnection(currentConnection, ps, rs);
 		}
-
 		return true;
 	}
 
@@ -272,8 +179,8 @@ public class TaskDAO {
 		String insertQuery = "INSERT INTO public.task(deadline, description, performancecriteria, performanceupperbound, performancevalue, pid, tid, title)VALUES (?, ?, ?, ?, NULL, ?, DEFAULT, ?);";
 		try {
 			ConnectionManager connect = new ConnectionManager();
-			currentCon = connect.getConnection();
-			ps = currentCon.prepareStatement(insertQuery);
+			currentConnection = connect.getConnection();
+			ps = currentConnection.prepareStatement(insertQuery);
 			ps.setDate(1, task.getDeadline());
 			ps.setString(2, task.getDescription());
 			ps.setString(3, task.getPerformanceCriteria());
@@ -285,22 +192,8 @@ public class TaskDAO {
 			e.printStackTrace();
 			return false;
 		} finally {
-			if (ps != null) {
-				try {
-					ps.close();
-				} catch (Exception e) {
-				}
-				ps = null;
-			}
-			if (currentCon != null) {
-				try {
-					currentCon.close();
-				} catch (Exception e) {
-				}
-				currentCon = null;
-			}
+			finalizeConnection(currentConnection, ps, rs);
 		}
-
 		return true;
 	}
 
@@ -311,19 +204,19 @@ public class TaskDAO {
 		String deleteWorkOnTask = "DELETE FROM work_task_emp WHERE tid=?;";
 		try {
 			ConnectionManager connect = new ConnectionManager();
-			currentCon = connect.getConnection();
-			ps = currentCon.prepareStatement(deletePrerequisite);
+			currentConnection = connect.getConnection();
+			ps = currentConnection.prepareStatement(deletePrerequisite);
 			ps.setInt(1, tid);
 			ps.executeUpdate();
 			ps.close();
-			ps = currentCon.prepareStatement(deleteChild);
+			ps = currentConnection.prepareStatement(deleteChild);
 			ps.setInt(1, tid);
 			ps.executeUpdate();
-			ps = currentCon.prepareStatement(deleteWorkOnTask);
+			ps = currentConnection.prepareStatement(deleteWorkOnTask);
 			ps.setInt(1, tid);
 			ps.executeUpdate();
 			ps.close();
-			ps = currentCon.prepareStatement(deleteTask);
+			ps = currentConnection.prepareStatement(deleteTask);
 			ps.setInt(1, tid);
 			ps.executeUpdate();
 			ps.close();
@@ -331,22 +224,8 @@ public class TaskDAO {
 			e.printStackTrace();
 			return false;
 		} finally {
-			if (ps != null) {
-				try {
-					ps.close();
-				} catch (Exception e) {
-				}
-				ps = null;
-			}
-			if (currentCon != null) {
-				try {
-					currentCon.close();
-				} catch (Exception e) {
-				}
-				currentCon = null;
-			}
+			finalizeConnection(currentConnection, ps, rs);
 		}
-
 		return true;
 	}
 
@@ -354,8 +233,8 @@ public class TaskDAO {
 		String remove = "DELETE FROM work_task_emp WHERE username=? and tid=?;";
 		try {
 			ConnectionManager connect = new ConnectionManager();
-			currentCon = connect.getConnection();
-			ps = currentCon.prepareStatement(remove);
+			currentConnection = connect.getConnection();
+			ps = currentConnection.prepareStatement(remove);
 			ps.setString(1, username);
 			ps.setInt(2, tid);
 			ps.executeUpdate();
@@ -370,12 +249,12 @@ public class TaskDAO {
 				}
 				ps = null;
 			}
-			if (currentCon != null) {
+			if (currentConnection != null) {
 				try {
-					currentCon.close();
+					currentConnection.close();
 				} catch (Exception e) {
 				}
-				currentCon = null;
+				currentConnection = null;
 			}
 		}
 
@@ -386,8 +265,8 @@ public class TaskDAO {
 		String searchQuery = "Select * From task where tid=?";
 		try {
 			ConnectionManager connect = new ConnectionManager();
-			currentCon = connect.getConnection();
-			ps = currentCon.prepareStatement(searchQuery);
+			currentConnection = connect.getConnection();
+			ps = currentConnection.prepareStatement(searchQuery);
 			ps.setInt(1, task.getTid());
 			rs = ps.executeQuery();
 			if (rs.next()) {
@@ -401,6 +280,8 @@ public class TaskDAO {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			finalizeConnection(currentConnection, ps, rs);
 		}
 		return task;
 
@@ -410,8 +291,8 @@ public class TaskDAO {
 		String update = "UPDATE task SET performancevalue=? WHERE tid=?;";// TODO: burayi duzelt
 		try {
 			ConnectionManager connect = new ConnectionManager();
-			currentCon = connect.getConnection();
-			ps = currentCon.prepareStatement(update);
+			currentConnection = connect.getConnection();
+			ps = currentConnection.prepareStatement(update);
 			ps.setInt(1, value);
 			ps.setInt(2, tid);
 			ps.executeUpdate();
@@ -419,22 +300,8 @@ public class TaskDAO {
 			e.printStackTrace();
 			return false;
 		} finally {
-			if (ps != null) {
-				try {
-					ps.close();
-				} catch (Exception e) {
-				}
-				ps = null;
-			}
-			if (currentCon != null) {
-				try {
-					currentCon.close();
-				} catch (Exception e) {
-				}
-				currentCon = null;
-			}
+			finalizeConnection(currentConnection, ps, rs);
 		}
-
 		return true;
 
 	}

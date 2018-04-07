@@ -7,13 +7,13 @@ import models.CommentBean;
 import models.ProjectBean;
 import models.UserBean;
 
-public class CommentsDAO {
+public class CommentsDAO extends DAO {
 	static Connection currentCon = null;
 	static PreparedStatement ps = null;
 	static ConnectionManager connect = null;
-	
-	public static boolean addComment(ProjectBean project,UserBean user,CommentBean comment) {
-		String query="insert into project_comments (username,content,pid) values (?,?,?)";
+
+	public static boolean addComment(ProjectBean project, UserBean user, CommentBean comment) {
+		String query = "insert into project_comments (username,content,pid) values (?,?,?)";
 		try {
 			connect = new ConnectionManager();
 			currentCon = connect.getConnection();
@@ -22,13 +22,12 @@ public class CommentsDAO {
 			ps.setString(2, comment.getContent());
 			ps.setInt(3, project.getPid());
 			ps.executeUpdate();
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
+		} finally {
+			finalizeConnection(currentCon, ps);
 		}
-		connect=null;
-		currentCon=null;
 		return true;
 	}
 }

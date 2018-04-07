@@ -15,19 +15,19 @@ import models.CommentBean;
 import models.ProjectBean;
 import models.UserBean;
 
-public class ProjectDAO {
-	static Connection currentCon = null;
+public class ProjectDAO extends DAO {
+	static Connection currentConnection = null;
 	static ResultSet rs = null;
 	static PreparedStatement ps = null;
-	static ConnectionManager connect = null;
+	static ConnectionManager connection = null;
 
 	public static ProjectBean getProject(ProjectBean project) {
 		int pid = project.getPid();
 		String query = "select * from project where pid=?";
 		try {
-			connect = new ConnectionManager();
-			currentCon = connect.getConnection();
-			ps = currentCon.prepareStatement(query);
+			connection = new ConnectionManager();
+			currentConnection = connection.getConnection();
+			ps = currentConnection.prepareStatement(query);
 			ps.setInt(1, pid);
 			rs = ps.executeQuery();
 			boolean more = rs.next();
@@ -54,9 +54,11 @@ public class ProjectDAO {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			finalizeConnection(currentConnection, ps, rs);
 		}
-		connect=null;
-		currentCon=null;
+		connection = null;
+		currentConnection = null;
 		return project;
 	}
 
@@ -84,38 +86,40 @@ public class ProjectDAO {
 		}
 
 		try {
-			connect = new ConnectionManager();
-			currentCon = connect.getConnection();
-			ps = currentCon.prepareStatement(query);
-			ps.setArray(1, currentCon.createArrayOf("DATE", meetings));
+			connection = new ConnectionManager();
+			currentConnection = connection.getConnection();
+			ps = currentConnection.prepareStatement(query);
+			ps.setArray(1, currentConnection.createArrayOf("DATE", meetings));
 			ps.setInt(2, project.getPid());
 			ps.executeUpdate();
 			project.setMeeting_dates(meetings);
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			finalizeConnection(currentConnection, ps, rs);
 		}
-		connect=null;
-		currentCon=null;
+		connection = null;
+		currentConnection = null;
 		return project;
 	}
 
-	public static boolean createProject(ProjectBean project,UserBean user) {
+	public static boolean createProject(ProjectBean project, UserBean user) {
 		String insertQuery = "insert into project (title,description,tags,creation_date) values (?,?,?,?)";
-		String SearchQuery="SELECT pid FROM project ORDER BY pid DESC LIMIT 1";
+		String SearchQuery = "SELECT pid FROM project ORDER BY pid DESC LIMIT 1";
 		try {
-			connect = new ConnectionManager();
-			currentCon = connect.getConnection();
-			ps = currentCon.prepareStatement(insertQuery);
+			connection = new ConnectionManager();
+			currentConnection = connection.getConnection();
+			ps = currentConnection.prepareStatement(insertQuery);
 			ps.setString(1, project.getTitle());
 			ps.setString(2, project.getDescription());
-			Array tags = currentCon.createArrayOf("TEXT", project.getTags());
+			Array tags = currentConnection.createArrayOf("TEXT", project.getTags());
 			ps.setArray(3, tags);
 			ps.setDate(4, new java.sql.Date(Calendar.getInstance().getTime().getTime()));
 			ps.executeUpdate();
-			
-			ps=currentCon.prepareStatement(SearchQuery);
-			rs=ps.executeQuery();
-			if(rs.next()){
+
+			ps = currentConnection.prepareStatement(SearchQuery);
+			rs = ps.executeQuery();
+			if (rs.next()) {
 				project.setPid(rs.getInt("pid"));
 				Man_Emp_ProDAO.setManager(project, user);
 				Work_Emp_ProDAO.addEmployee(user, project);
@@ -123,9 +127,11 @@ public class ProjectDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
+		} finally {
+			finalizeConnection(currentConnection, ps, rs);
 		}
-		connect=null;
-		currentCon=null;
+		connection = null;
+		currentConnection = null;
 		return true;
 	}
 
@@ -134,9 +140,9 @@ public class ProjectDAO {
 		ArrayList<UserBean> result = new ArrayList<UserBean>();
 		String query = "select * from work_emp_pro w, employee e where w.pid=? AND w.username=e.username";
 		try {
-			connect = new ConnectionManager();
-			currentCon = connect.getConnection();
-			ps = currentCon.prepareStatement(query);
+			connection = new ConnectionManager();
+			currentConnection = connection.getConnection();
+			ps = currentConnection.prepareStatement(query);
 			ps.setInt(1, pid);
 			rs = ps.executeQuery();
 			while (rs.next()) {
@@ -153,110 +159,96 @@ public class ProjectDAO {
 		} catch (Exception ex) {
 			System.out.println("Failed: An Exception has occurred! " + ex);
 		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (Exception e) {
-				}
-				rs = null;
-			}
-			if (ps != null) {
-				try {
-					ps.close();
-				} catch (Exception e) {
-				}
-				ps = null;
-			}
-			if (currentCon != null) {
-				try {
-					currentCon.close();
-				} catch (Exception e) {
-				}
-				currentCon = null;
-			}
+			finalizeConnection(currentConnection, ps, rs);
 		}
-		connect=null;
-		currentCon=null;
+		connection = null;
+		currentConnection = null;
 		return result;
 	}
-	public static ArrayList<CommentBean> getComments(ProjectBean project){
-		int pid=project.getPid();
-		ArrayList<CommentBean> comments=new ArrayList<>();
-		String query="select * from project_comments where pid=?";
+
+	public static ArrayList<CommentBean> getComments(ProjectBean project) {
+		int pid = project.getPid();
+		ArrayList<CommentBean> comments = new ArrayList<>();
+		String query = "select * from project_comments where pid=?";
 		try {
-			connect = new ConnectionManager();
-			currentCon = connect.getConnection();
-			ps = currentCon.prepareStatement(query);
+			connection = new ConnectionManager();
+			currentConnection = connection.getConnection();
+			ps = currentConnection.prepareStatement(query);
 			ps.setInt(1, pid);
 			rs = ps.executeQuery();
-			while(rs.next()){
-				CommentBean comment=new CommentBean();
+			while (rs.next()) {
+				CommentBean comment = new CommentBean();
 				comment.setCid(rs.getInt("cid"));
 				comment.setContent(rs.getString("content"));
 				comment.setPid(rs.getInt("pid"));
 				comment.setUsername(rs.getString("username"));
 				comments.add(comment);
 			}
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 			return new ArrayList<>();
+		} finally {
+			finalizeConnection(currentConnection, ps, rs);
 		}
-		connect=null;
-		currentCon=null;
+		connection = null;
+		currentConnection = null;
 		return comments;
-		
+
 	}
-	public static boolean upvote(ProjectBean project){
-		String SearchQuery="select votenum from project where pid=?";
-		String updateQuery="update project set votenum=? where pid=?";
-		int votenum=0;
+
+	public static boolean upvote(ProjectBean project) {
+		String SearchQuery = "select votenum from project where pid=?";
+		String updateQuery = "update project set votenum=? where pid=?";
+		int votenum = 0;
 		try {
-			connect = new ConnectionManager();
-			currentCon = connect.getConnection();
-			ps = currentCon.prepareStatement(SearchQuery);
+			connection = new ConnectionManager();
+			currentConnection = connection.getConnection();
+			ps = currentConnection.prepareStatement(SearchQuery);
 			ps.setInt(1, project.getPid());
 			rs = ps.executeQuery();
-			if(rs.next()){
-				votenum=rs.getInt("votenum")+1;
+			if (rs.next()) {
+				votenum = rs.getInt("votenum") + 1;
 			}
-			ps=currentCon.prepareStatement(updateQuery);
+			ps = currentConnection.prepareStatement(updateQuery);
 			ps.setInt(1, votenum);
 			ps.setInt(2, project.getPid());
 			ps.executeUpdate();
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
+		} finally {
+			finalizeConnection(currentConnection, ps, rs);
 		}
-		connect=null;
-		currentCon=null;
+		connection = null;
+		currentConnection = null;
 		return true;
 	}
-	public static boolean downvote(ProjectBean project){
-		String SearchQuery="select votenum from project where pid=?";
-		String updateQuery="update project set votenum=? where pid=?";
-		int votenum=0;
+
+	public static boolean downvote(ProjectBean project) {
+		String SearchQuery = "select votenum from project where pid=?";
+		String updateQuery = "update project set votenum=? where pid=?";
+		int votenum = 0;
 		try {
-			connect = new ConnectionManager();
-			currentCon = connect.getConnection();
-			ps = currentCon.prepareStatement(SearchQuery);
+			connection = new ConnectionManager();
+			currentConnection = connection.getConnection();
+			ps = currentConnection.prepareStatement(SearchQuery);
 			ps.setInt(1, project.getPid());
 			rs = ps.executeQuery();
-			if(rs.next()){
-				votenum=rs.getInt("votenum")-1;
+			if (rs.next()) {
+				votenum = rs.getInt("votenum") - 1;
 			}
-			ps=currentCon.prepareStatement(updateQuery);
+			ps = currentConnection.prepareStatement(updateQuery);
 			ps.setInt(1, votenum);
 			ps.setInt(2, project.getPid());
 			ps.executeUpdate();
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
+		} finally {
+			finalizeConnection(currentConnection, ps, rs);
 		}
-		connect=null;
-		currentCon=null;
+		connection = null;
+		currentConnection = null;
 		return true;
 	}
 

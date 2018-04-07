@@ -6,21 +6,22 @@ import java.sql.ResultSet;
 
 import models.UserBean;
 
-public class ProfileDAO {
-	static Connection currentCon = null;
+public class ProfileDAO extends DAO {
+	static Connection currentConnection = null;
 	static ResultSet rs = null;
 	static PreparedStatement ps = null;
-	static ConnectionManager connect=null;
-	public static UserBean loadUser(UserBean user){
-		
-		String query="select * from employee where username=?";
-		try{
-			connect=new ConnectionManager();
-			currentCon=connect.getConnection();
-			ps=currentCon.prepareStatement(query);
-			ps.setString(1,user.getUsername());
+	static ConnectionManager connect = null;
+
+	public static UserBean loadUser(UserBean user) {
+
+		String query = "select * from employee where username=?";
+		try {
+			connect = new ConnectionManager();
+			currentConnection = connect.getConnection();
+			ps = currentConnection.prepareStatement(query);
+			ps.setString(1, user.getUsername());
 			rs = ps.executeQuery();
-			if(rs.next()){
+			if (rs.next()) {
 				user.setEmail(rs.getString("email"));
 				user.setFirstName(rs.getString("firstname"));
 				user.setImage(rs.getString("image"));
@@ -29,12 +30,11 @@ public class ProfileDAO {
 				user.setMiddleName(rs.getString("middlename"));
 				user.setPassword(rs.getString("password"));
 			}
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			finalizeConnection(currentConnection, ps, rs);
 		}
-		connect=null;
-		currentCon=null;
 		return user;
 	}
 }

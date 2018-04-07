@@ -7,8 +7,8 @@ import java.sql.Statement;
 
 import models.UserBean;
 
-public class LoginDAO {
-	static Connection currentCon = null;
+public class LoginDAO extends DAO {
+	static Connection currentConnection = null;
 	static ResultSet rs = null;
 	static PreparedStatement ps = null;
 	static ConnectionManager connect = new ConnectionManager();
@@ -18,8 +18,8 @@ public class LoginDAO {
 		String searchQuery = "select * from EMPLOYEE where Username=? AND Password=?";
 		try {
 			
-			currentCon = connect.getConnection();
-			ps = currentCon.prepareStatement(searchQuery);
+			currentConnection = connect.getConnection();
+			ps = currentConnection.prepareStatement(searchQuery);
 			ps.setString(1, username);
 			ps.setString(2, password);
 			rs = ps.executeQuery();
@@ -45,30 +45,8 @@ public class LoginDAO {
 		} catch (Exception ex) {
 			System.out.println("Log In failed: An Exception has occurred! " + ex);
 		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (Exception e) {
-				}
-				rs = null;
-			}
-			if (ps != null) {
-				try {
-					ps.close();
-				} catch (Exception e) {
-				}
-				ps = null;
-			}
-			if (currentCon != null) {
-				try {
-					currentCon.close();
-				} catch (Exception e) {
-				}
-				currentCon = null;
-			}
+			finalizeConnection(currentConnection, ps, rs);
 		}
-		connect=null;
-		currentCon=null;
 		return bean;
 	}
 }
